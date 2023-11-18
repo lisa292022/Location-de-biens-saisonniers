@@ -1,0 +1,12 @@
+<?php
+//Connexion à la base de donnée
+//$code = new PDO("mysql:host=127.0.0.1;dbname=locations_biens_saisonniers",'root','');
+
+//Connexion à la base de donnée
+    try {
+        $code = new PDO("mysql:host=127.0.0.1;dbname=locations_biens_saisonniers",'root','');
+    }
+    catch( PDOException $e ) {
+        echo "Erreur SQL :", $e->getMessage();
+    }
+?>
