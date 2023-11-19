@@ -122,7 +122,15 @@ td{
 .input_container ul li:hover {
 	background: #eaeaea;
 }
-
+.container {
+	width: 1000px;
+	height: auto;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	border-radius: 10px;
+	margin: auto;
+	text-align: left;
+}
 
 
 

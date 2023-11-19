@@ -1,4 +1,5 @@
 <td>Liste Tarif</td>
+<title>Liste des tarifs</title>
 <form name="liste_tarif" methode="POST" action="tarif_traitement.php">
 <?php 
     include('../include/connexion.inc.include');
@@ -14,9 +15,9 @@
     if(isset($_POST['ajouter'])){
             echo "<script>alert('Etes-vous certain de vouloir ajouter ?');</script>;";
             // récupère id du bien
-            $MonBienId=$oBiens->getId($_POST['nom_bien']);
-            $row2=$MonBienId->fetch(PDO::FETCH_ASSOC); $nom_bien = $row2['nom_bien'];
-            $oTarif->insert($_POST['id_tarif'],$_POST['date_deb_tarif'],$_POST['date_fin_tarif'],$_POST['prix_loc'],$id_bien);
+            $MonBienId= $oBiens->getId_bien($_POST['nom_bien']);  
+            //$row2=$MonBienId->fetch(PDO::FETCH_ASSOC); $nom_bien = $row2['nom_bien'];
+            $oTarif->insertTarif($_POST['date_deb_tarif'],$_POST['date_fin_tarif'],$_POST['prix_loc'],$_POST['nom_bien']);
             header('locations_biens_saisonniers: tarif_affichage.php');
     } 
         if(isset($_POST['supprimer'])){
@@ -38,14 +39,16 @@
     while($row = $lestarifs->fetch(PDO::FETCH_ASSOC)):?>
                     <form id='modifier' name='modifier' action='tarif_affichage.php' method='POST'>
                         <tr>
-                        <td><?php echo "<input type='text' class='form-control' id='id_tarif".$row['id_tarif']."' name='id_tarif".$row['id_tarif']."' value='".$row['id_tarif']."'"; ?></td>                       
+                        <!--td><?php echo "<input type='text' class='form-control' id='id_tarif".$row['id_tarif']."' name='id_tarif".$row['id_tarif']."' value='".$row['id_tarif']."'"; ?></td-->                       
                         <td><?php echo "<input type='date' class='form-control' id='date_deb_tarif".$row['date_deb_tarif']."' name='date_deb_tarif".$row['date_deb_tarif']."' value='".$row['date_deb_tarif']."'"; ?></td>
                         <td><?php echo "<input type='date' class='form-control' id='date_fin_tarif".$row['date_fin_tarif']."' name='date_fin_tarif".$row['date_fin_tarif']."' value='".$row['date_fin_tarif']."'"; ?></td>
                         <td><?php echo "<input type='text' class='form-control' id='prix_loc".$row['prix_loc']."' name='prix_loc".$row['prix_loc']."' value='".$row['prix_loc']."'"; ?></td>                                             
                         
-                        <?php $MonBien = $oBiens->getBiens($row['id_bien']); $row2=$MonBien->fetch(PDO::FETCH_ASSOC); $MonBienTexte = $row2['nom_bien'];?>
-                        <td><?php echo "<input type='text' class='form-control' id='nom_bien' name='nom_bien' value='".$MonBienTexte."'"; ?></td>                            
-                        
+                        <td><?php $MonNomBien = $oBiens->getOneBien($row['id_bien']); 
+                        $row4=$MonNomBien->fetch(PDO::FETCH_ASSOC); 
+                        $MonNomBienTexte = $row4['nom_bien']; ?></td>
+                        <td><?php echo "<input type='text' class='form-control' id='nom_bien' name='nom_bien' value='".$MonNomBienTexte."'"; ?></td>
+                
                         <td>
                             <button name='modifier' value="<?php echo $row['id_tarif'];?>" type='submit' class="btn btn-primary">Modifier</button>
                         </td>
@@ -62,18 +65,19 @@
      <?php endwhile;?>
 
     
-    <form id="ajouter" name="ajouter" action="cheval_affichage.php" method="POST">
-                        <td><input type="text" class="form-control" id="id_tarif" name="id_tarif" placeholder="Indiquez l'identifiant du tarif"> </td>
+    <form id="ajouter" name="ajouter" action="tarif_affichage.php" method="POST">
+                        <!--td><input type="text" class="form-control" id="id_tarif" name="id_tarif" placeholder="Indiquez l'identifiant du tarif"> </td-->
                         <td><input type="date" class="form-control" id="date_deb_tarif" name="date_deb_tarif" placeholder="Indiquez la date de fin"> </td>
                         <td><input type="date" class="form-control" id="date_fin_tarif" name="date_fin_tarif" placeholder="Indiquez la date de début"></td>
                         <td><input type="text" class="form-control" id="prix_loc" name="prix_loc" placeholder="Indiquez le prix de la location"> </td>
-                        <td><select id="id_bien" name="id_bien">
+                        <td><select id="nom_bien" name="nom_bien">
                                 <?php
-                                    $all_bien = $oBiens->getall();
-                                    foreach($all_bien as $biens) {
+                                    $all_bien = $oBiens->getAllBiens();
+                                    //var_dump($all_bien);
+                                    foreach($all_bien as $bien) {
                                 ?>
-                                <option value="<?php echo $biens["id_bien"];?>">
-                                    <?php echo $biens["id_bien"]?>
+                                <option value="<?php echo $bien["id_bien"];?>">
+                                    <?php echo $bien["nom_bien"]?>
                                 </option>
                                <?php
                                    //endwhile;

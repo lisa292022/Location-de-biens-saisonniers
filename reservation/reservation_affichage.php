@@ -68,7 +68,7 @@
     
     $lesreservations=$oReservation->getAllReservation();    
     while($row = $lesreservations->fetch(PDO::FETCH_ASSOC)):?>
-                    <form id='modifier' name='modifier' action='reservation_affichage.php' method='POST'>
+                    <form id='modifier' name='modifier' action='reservation_traitement.php' method='POST'>
                         <tr>
                         <!--td><?php echo "<input type='text' class='form-control' id='id_reservation".$row['id_reservation']."' name='id_reservation".$row['id_reservation']."' value='".$row['id_reservation']."'"; ?></td-->                       
                         <!--td><?php echo "<input type='date' class='form-control' id='date_resa".$row['id_reservation']."' name='date_resa".$row['id_reservation']."' value='".$row['date_resa']."'"; ?></td-->
@@ -108,7 +108,7 @@
      <?php endwhile;?>
 
     
-    <form id="ajouter" name="ajouter" action="reservation_affichage.php" method="POST">
+    <form id="ajouter" name="ajouter" action="reservation_traitement.php" method="POST">
                         <!--td><input type="text" class="form-control" id="id_reservation" name="id_reservation" placeholder="Indiquez l'identifiant de réservation"> </td-->
                         <!--td><input type="date" class="form-control" id="date_resa" name="date_resa" placeholder="Indiquez la date de la réservation"> </td-->
                         <td><input type="date" class="form-control" id="date_deb_resa" name="date_deb_resa" placeholder="Indiquez la date de début"></td>

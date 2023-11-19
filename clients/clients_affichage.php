@@ -1,3 +1,9 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Liste des clients</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
 <td>Liste Clients</td>
 <!--form name="liste_clients" methode="POST" action="clients_traitement.php"-->
 <table>
@@ -71,7 +77,7 @@
                         ?></td>
                         
                         <td><?php echo "<input type='text' class='form-control' id='mail_client".$row['id_client']."' name='mail_client".$row['id_client']."' value='".$row['mail_client']."'"; ?></td>                                             
-                        <td><?php echo "<input type='text' class='form-control' id='mdp_client".$row['id_client']."' name='mdp_client".$row['id_client']."' value='".$row['mdp_client']."'"; ?></td>                                             
+                        <td><?php echo "<input type='password' class='form-control' id='mdp_client".$row['id_client']."' name='mdp_client".$row['id_client']."' value='".$row['mdp_client']."'"; ?></td>                                             
                         <td><?php echo "<input type='text' class='form-control' id='statut_client".$row['id_client']."' name='statut_client".$row['id_client']."' value='".$row['statut_client']."'"; ?></td>                                             
                         <td><?php echo "<input type='text' class='form-control' id='valid_client".$row['id_client']."' name='valid_client".$row['id_client']."' value='".$row['valid_client']."'"; ?></td>                                             
                         
@@ -100,7 +106,7 @@
                         <td><input type="text" class="form-control" id="cop_client" name="cop_client" placeholder="Indiquez le code postale"> </td>
                         <td><input type="text" class="form-control" id="vil_client" name="vil_client" placeholder="Indiquez la ville"></td>
                         <td><input type="text" class="form-control" id="mail_client" name="mail_client" placeholder="Indiquez le mail du client"> </td>
-                        <td><input type="text" class="form-control" id="mdp_client" name="mdp_client" placeholder="Indiquez le mot de passe"> </td>
+                        <td><input type="password" class="form-control" id="mdp_client" name="mdp_client" placeholder="Indiquez le mot de passe"> </td>
                         <td><input type="text" class="form-control" id="statut_client" name="statut_client" placeholder="Indiquez le statut"> </td>
                         <td><input type="text" class="form-control" id="valid_client" name="valid_client" placeholder="Indiquez la validité"> </td>
                         

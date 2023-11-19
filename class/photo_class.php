@@ -53,8 +53,8 @@
         return $stmt;
         }
 
-    public function insertPhoto($id_photo, $nom_photo, $lien_photo, $id_bien) {
-        $SQL = "INSERT INTO photos (id_photo, nom_photo, lien_photo, id_bien) VALUES ('".$id_photo."','".$nom_photo."','".$lien_photo."','".$id_bien."')";
+    public function insertPhoto($nom_photo, $lien_photo, $id_bien) {
+        $SQL = "INSERT INTO photos (nom_photo, lien_photo, id_bien) VALUES ('".$nom_photo."','".$lien_photo."','".$id_bien."')";
         $code = $this->code;
         $stmt=$code->Query($SQL);
         return $stmt;
