@@ -19,6 +19,7 @@
                       <th>Adresse</th>
                       <th>Code postal</th>
                       <th>Ville</th>
+                      <th>Ville / Code postal</th>
                       <th>Superficie</th>
                       <th>Couchage(s)</th>
                       <th>Pièce(s)</th>
@@ -74,14 +75,7 @@
                         <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."'"; ?></td>
                         <td><?php echo "<input type='text' class='form-control' id='rue_bien".$row['id_bien']."' name='rue_bien".$row['id_bien']."' value='".$row['rue_bien']."'"; ?></td>
                         
-                        <td>
-                            <!--form-->
-                                <!--div class="input_container"-->
-                                <input type="text" id='cop_vil_bien<?php echo $row['id_bien']; ?>' onkeyup="autocomplet3('cop_vil_bien<?php echo $row['id_bien']; ?>', 'cop_vil_bien_list<?php echo $row['id_bien']; ?>' )">
-				<ul id="cop_vil_bien_list<?php echo $row['id_bien']; ?>"></ul>
-                            <!--/div-->
-                            <!--/form-->
-                        </td>
+                        
                         
                         
                         <td><?php
@@ -89,15 +83,20 @@
                         $maville = $ocommune->getnom_commune_postal_code_postal($row['Idcom']); 
                         $liste_code_postal = $maville->fetch(PDO::FETCH_ASSOC);
                         $code_postal=$liste_code_postal['code_postal'];
-                        echo "<input type='text' class='form-control' id='cop_bien".$row['id_bien']."' name='cop_bien".$row['id_bien']."' value='".$code_postal."'";
+                        echo "<input type='text' class='form-control' id='cop_bien".$row['id_bien']."' name='cop_bien".$row['id_bien']."' value='".$code_postal."' disabled='disabled'";
                         ?></td>
                         
                         <td><?php 
                         $maville = $ocommune->getnom_commune_postal_code_postal($row['Idcom']); 
                         $liste_nom_commune_postal = $maville->fetch(PDO::FETCH_ASSOC);
                         $nom_commune_postal=$liste_nom_commune_postal['nom_commune_postal'];
-                        echo "<input type='text' class='form-control' id='vil_bien".$row['id_bien']."' name='vil_bien".$row['id_bien']."' value='".$nom_commune_postal."'";
+                        echo "<input type='text' class='form-control' id='vil_bien".$row['id_bien']."' name='vil_bien".$row['id_bien']."' value='".$nom_commune_postal."' disabled='disabled'";
                         ?></td>
+                        
+                        <td>
+                                <input type="text" class='form-control' id='cop_vil_bien<?php echo $row['id_bien']; ?>' name='cop_vil_bien<?php echo $row['id_bien']; ?>' value='<?php echo $nom_commune_postal." ".$code_postal ; ?>'    onkeyup="autocomplet3('cop_vil_bien<?php echo $row['id_bien']; ?>', 'cop_vil_bien_list<?php echo $row['id_bien']; ?>' )">
+				<ul id="cop_vil_bien_list<?php echo $row['id_bien']; ?>"></ul>
+                        </td>
                         
                         <td><?php echo "<input type='text' class='form-control' id='superficie_bien".$row['id_bien']."' name='superficie_bien".$row['id_bien']."' value='".$row['superficie_bien']."'"; ?></td>  
                         <td><?php echo "<input type='text' class='form-control' id='nb_couchage".$row['id_bien']."' name='nb_couchage".$row['id_bien']."' value='".$row['nb_couchage']."'"; ?></td>  
@@ -107,7 +106,7 @@
                         <td><?php echo "<input type='text' class='form-control' id='ref_bien".$row['id_bien']."' name='ref_bien".$row['id_bien']."' value='".$row['ref_bien']."'"; ?></td>  
                         <td><?php echo "<input type='text' class='form-control' id='statut_bien".$row['id_bien']."' name='statut_bien".$row['id_bien']."' value='".$row['statut_bien']."'"; ?></td>  
                                
-                        <?php $MonTypeBien = $oTypebien->getAllTypeBien($row['id_type_bien']); $row2=$MonTypeBien->fetch(PDO::FETCH_ASSOC); $MonTypeBienTexte = $row2['lib_type_bien'];?>
+                        <?php $MonTypeBienTexte = $oTypebien->getLibTypeBien($row['id_type_bien']); ?>
                         <td><?php echo "<input type='text' class='form-control' id='lib_type_bien".$row['id_bien']."' name='lib_type_bien".$row['id_bien']."' value='".$MonTypeBienTexte."'"; ?></td>                            
                         
                         <td>
@@ -130,18 +129,24 @@
                         <td></td>
                         <td><input type="text" class="form-control" id="nom_bien" name="nom_bien" placeholder="Indiquez le nom du bien"> </td>
                         <td><input type="text" class="form-control" id="rue_bien" name="rue_bien" placeholder="Indiquez la rue du bien"></td>
+                        <td><input type="text" class="form-control" id="cop_bien" name="cop_bien" placeholder="Code postal du bien" disabled="disabled"> </td>
+                        <td><input type="text" class="form-control" id="vil_bien" name="vil_bien" placeholder="Ville du bien" disabled="disabled"> </td>
+                        
+                        <!--td><input type="text" class='form-control' id='cop_vil_bien' name='cop_vil_bien' onkeyup="autocomplet3('cop_vil_bien', 'cop_vil_bien_list' ) '">
+                            <ul id="cop_vil_bien_list"></ul>
+                        </td-->
+                        
                         <td>
                             <!--form-->
                                 <div class="input_container">
-                                <input type="text" id='cop_vil_bien' onkeyup="autocomplet3('cop_vil_bien', 'cop_vil_bien_list' )">
+                                <input type="text" id='cop_vil_bien' name='cop_vil_bien' placeholder='Indiquez la ville et le code postal du bien' onkeyup="autocomplet3('cop_vil_bien', 'cop_vil_bien_list' )">
 				
 				<ul id="cop_vil_bien_list"></ul>
                             </div>
                             <!--/form-->
                         </td>
                             
-                        <td><input type="text" class="form-control" id="cop_bien" name="cop_bien" placeholder="Indiquez le code postal du bien"> </td>
-                        <td><input type="text" class="form-control" id="vil_bien" name="vil_bien" placeholder="Indiquez la ville du bien"> </td>
+                        
                         <td><input type="text" class="form-control" id="superfice_bien" name="superficie_bien" placeholder="Indiquez le superficie du bien"> </td>
                         <td><input type="text" class="form-control" id="nb_couchage" name="nb_couchage" placeholder="Indiquez le nombre de couchage du bien"> </td>
                         <td><input type="text" class="form-control" id="nb_piece" name="nb_piece" placeholder="Indiquez le nombre de piece"> </td>
@@ -151,7 +156,7 @@
                         <td><input type="text" class="form-control" id="statut_bien" name="statut_bien" placeholder="Indiquez le statut du bien"> </td>
                        
                         
-                        <td><select id="lib_type_bien" name="lib_type_bien">
+                        <td><select class="form-control" id="lib_type_bien" name="lib_type_bien">
                                 <?php
                                     $all_type_bien = $oTypebien->getAllTypeBien();
                                     foreach($all_type_bien as $type_bien) {

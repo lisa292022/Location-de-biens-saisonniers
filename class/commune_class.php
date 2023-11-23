@@ -53,6 +53,22 @@
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['Idcom'];
         }
+        public function getidcomCouple($code_postal_et_nom_commune_postal) {
+        $taille=strlen($code_postal_et_nom_commune_postal);
+        $code_postal=substr($code_postal_et_nom_commune_postal,$taille-5, 5);
+        $code_postal_entier = intval($code_postal);
+        if ($code_postal_entier > 9999) {
+            $nom_commune_postal=substr($code_postal_et_nom_commune_postal,0, $taille-5);
+        }
+        else {
+            $nom_commune_postal=substr($code_postal_et_nom_commune_postal,0, $taille-4);
+        }
+        $sql = "SELECT Idcom FROM communes WHERE nom_commune_postal='".$nom_commune_postal."' AND code_postal=".$code_postal_entier;
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['Idcom'];
+        }
         public function getOneCommune($id_com) {
         $sql = "SELECT * FROM communes WHERE id_bien=".$id_com;
         $code = $this->code;

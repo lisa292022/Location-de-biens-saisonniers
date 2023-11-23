@@ -40,6 +40,22 @@ class TypeBien {
         $code = $this->code;
         $stmt = $code->Query($sql);
         return $stmt;
+    }
+    
+    public function getLibTypeBien($id_type_bien) {
+        $sql = "SELECT * FROM type_bien WHERE id_type_bien= ".$id_type_bien;
+        $code = $this->code;
+        $stmt = $code->Query($sql);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['lib_type_bien'];
+    }
+
+    public function getIdTypeBien($lib_type_bien) {
+        $sql = "SELECT * FROM type_bien WHERE lib_type_bien= '".$lib_type_bien."'";
+        $code = $this->code;
+        $stmt = $code->Query($sql);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['id_type_bien'];
     }    
     
     public function insertTypeBien($lib_type_bien) {
