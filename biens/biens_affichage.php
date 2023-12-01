@@ -1,4 +1,3 @@
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Liste des biens</title>
@@ -7,18 +6,15 @@
 </head>
 
 <body>    
-<td>Liste des Biens</td>
-    <!--link rel="stylesheet" href="css/style.css" />
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script-->
+    <center>Liste des Biens</center>
+    <!--link rel="stylesheet" href="css/style.css" /-->
     <div class="container">
     <table>
     <tr>
-                      <th> ID </th>
                       <th>Nom</th>
                       <th>Adresse</th>
-                      <th>Code postal</th>
-                      <th>Ville</th>
+                      <!--th>Code postal</th>
+                      <th>Ville</th-->
                       <th>Ville / Code postal</th>
                       <th>Superficie</th>
                       <th>Couchage(s)</th>
@@ -29,7 +25,7 @@
                       <th>Statut</th>
                       <th>Type</th>
                       <th colspan="1"><th>
-</tr>
+    </tr>
     <?php 
         include('../include/connexion.inc.include');
         include('../class/biens_class.php');
@@ -42,59 +38,29 @@
         $lesbiens=$oBiens->getAllBiens();
         $ocommune = new Commune(1);
         $ocommune->setcode($code);
-        
-        /*
-        if(isset($_POST['ajouter'])){
-            echo "<script>alert('Etes-vous certain de vouloir ajouter ?');</script>;";
-            // récupère id de type_bien
-            $MonTypebienId=$oTypebien->getId_type_bien($_POST['lib_type_bien']);
-            $idcom = $ocommune->getidcom($_POST['cop_bien'],$_POST['vil_bien']);
-            $oBiens->insertBien($_POST['nom_bien'],$_POST['rue_bien'],$idcom,$_POST['superficie_bien'], $_POST['nb_couchage'], $_POST['nb_piece'], $_POST['nb_chambre'], $_POST['descriptif'], $_POST['ref_bien'], $_POST['statut_bien'], $_POST['lib_type_bien']);
-            header('Location: biens_affichage.php');
-        } 
-        if(isset($_POST['supprimer'])){
-            echo "<script>alert('Etes-vous certain de vouloir supprimer ?');</script>";
-            $id_bien = $_POST['supprimer'];
-            $oBiens->deleteBien($id_bien);
-            header('Location: biens_affichage.php');
-        }
-           if(isset($_POST['modifier'])){
-            echo "<script>alert('Etes-vous certain de vouloir modifier ?');</script>";
-            $id_bien = $_POST['modifier'];
-            $idcom = $ocommune->getidcom($_POST['cop_bien'.$id_bien],$_POST['vil_bien'.$id_bien]);
-            $MonTypebienId=$oTypebien->getId_type_bien($_POST['lib_type_bien']);
-            $oBiens->updateBien($id_bien,$_POST['nom_bien'.$id_bien],$_POST['rue_bien'.$id_bien],$idcom,$_POST['superficie_bien'.$id_bien],$_POST['nb_couchage'.$id_bien],$_POST['nb_piece'.$id_bien],$_POST['nb_chambre'.$id_bien],$_POST['descriptif'.$id_bien],$_POST['ref_bien'.$id_bien],$_POST['statut_bien'.$id_bien], $_POST['lib_type_bien']);
-            header('Location: clients_affichage.php');
-        }
-        */
-        
         $lesbiens=$oBiens->getAllBiens();
         while($row = $lesbiens->fetch(PDO::FETCH_ASSOC)):?>
-                    <form id='modifier' name='modifier' action='biens_traitement.php' method='POST'>
-                        <td><?php echo $row['id_bien'] ?></td>              
+                    <form id='modifier' name='modifier' action='biens_traitement.php' method='POST'>           
                         <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."'"; ?></td>
                         <td><?php echo "<input type='text' class='form-control' id='rue_bien".$row['id_bien']."' name='rue_bien".$row['id_bien']."' value='".$row['rue_bien']."'"; ?></td>
                         
-                        
-                        
-                        
-                        <td><?php
+                        <!--td><?php
                         $idcom = $row['Idcom'];
                         $maville = $ocommune->getnom_commune_postal_code_postal($row['Idcom']); 
                         $liste_code_postal = $maville->fetch(PDO::FETCH_ASSOC);
                         $code_postal=$liste_code_postal['code_postal'];
                         echo "<input type='text' class='form-control' id='cop_bien".$row['id_bien']."' name='cop_bien".$row['id_bien']."' value='".$code_postal."' disabled='disabled'";
-                        ?></td>
+                        ?></td-->
                         
-                        <td><?php 
+                        <!--td><?php 
                         $maville = $ocommune->getnom_commune_postal_code_postal($row['Idcom']); 
                         $liste_nom_commune_postal = $maville->fetch(PDO::FETCH_ASSOC);
                         $nom_commune_postal=$liste_nom_commune_postal['nom_commune_postal'];
                         echo "<input type='text' class='form-control' id='vil_bien".$row['id_bien']."' name='vil_bien".$row['id_bien']."' value='".$nom_commune_postal."' disabled='disabled'";
-                        ?></td>
+                        ?></td-->
                         
                         <td>
-                                <input type="text" class='form-control' id='cop_vil_bien<?php echo $row['id_bien']; ?>' name='cop_vil_bien<?php echo $row['id_bien']; ?>' value='<?php echo $nom_commune_postal." ".$code_postal ; ?>'    onkeyup="autocomplet3('cop_vil_bien<?php echo $row['id_bien']; ?>', 'cop_vil_bien_list<?php echo $row['id_bien']; ?>' )">
+                                <input type="text" class='form-control' id='cop_vil_bien<?php echo $row['id_bien']; ?>' name='cop_vil_bien<?php echo $row['id_bien']; ?>' value='<?php echo $nom_commune_postal." ".$code_postal ; ?>'    onkeyup="autocompletbien('cop_vil_bien<?php echo $row['id_bien']; ?>', 'cop_vil_bien_list<?php echo $row['id_bien']; ?>' )">
 				<ul id="cop_vil_bien_list<?php echo $row['id_bien']; ?>"></ul>
                         </td>
                         
@@ -120,33 +86,23 @@
                         </td>
                         </form>
                         </tr>
-                        
-    
         <?php endwhile;?>
 
     
     <form id="ajouter" name="ajouter" action="biens_traitement.php" method="POST">
-                        <td></td>
                         <td><input type="text" class="form-control" id="nom_bien" name="nom_bien" placeholder="Indiquez le nom du bien"> </td>
                         <td><input type="text" class="form-control" id="rue_bien" name="rue_bien" placeholder="Indiquez la rue du bien"></td>
-                        <td><input type="text" class="form-control" id="cop_bien" name="cop_bien" placeholder="Code postal du bien" disabled="disabled"> </td>
-                        <td><input type="text" class="form-control" id="vil_bien" name="vil_bien" placeholder="Ville du bien" disabled="disabled"> </td>
-                        
-                        <!--td><input type="text" class='form-control' id='cop_vil_bien' name='cop_vil_bien' onkeyup="autocomplet3('cop_vil_bien', 'cop_vil_bien_list' ) '">
-                            <ul id="cop_vil_bien_list"></ul>
-                        </td-->
+                        <!--td><input type="text" class="form-control" id="cop_bien" name="cop_bien" placeholder="Code postal du bien" disabled="disabled"> </td-->
+                        <!--td><input type="text" class="form-control" id="vil_bien" name="vil_bien" placeholder="Ville du bien" disabled="disabled"> </td--> 
                         
                         <td>
-                            <!--form-->
-                                <div class="input_container">
-                                <input type="text" id='cop_vil_bien' name='cop_vil_bien' placeholder='Indiquez la ville et le code postal du bien' onkeyup="autocomplet3('cop_vil_bien', 'cop_vil_bien_list' )">
+                            <div class="input_container">
+                                <input type="text" id='cop_vil_bien' name='cop_vil_bien' placeholder='Indiquez la ville et le code postal du bien' onkeyup="autocompletbien('cop_vil_bien', 'cop_vil_bien_list' )">
 				
 				<ul id="cop_vil_bien_list"></ul>
                             </div>
-                            <!--/form-->
                         </td>
                             
-                        
                         <td><input type="text" class="form-control" id="superfice_bien" name="superficie_bien" placeholder="Indiquez le superficie du bien"> </td>
                         <td><input type="text" class="form-control" id="nb_couchage" name="nb_couchage" placeholder="Indiquez le nombre de couchage du bien"> </td>
                         <td><input type="text" class="form-control" id="nb_piece" name="nb_piece" placeholder="Indiquez le nombre de piece"> </td>
