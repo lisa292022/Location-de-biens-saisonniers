@@ -1,4 +1,9 @@
-<td>Liste des types biens</td>
+<center>Liste des types de biens</center>
+<table>
+    <tr>
+                      <th>type</th>
+                      <th colspan="1"><th>
+    </tr>
  <form name="liste_bien" method="POST" action="type_bien_traitement.php">
         <?php
     include('../include/connexion.inc.include');
@@ -11,9 +16,7 @@
 <form id='modifier' name='modifier'action='type_bien_traitement.php' method='POST'>
     <?php foreach ($lestypebien as $untypebien) {  ?>
             
-             
-            <tr>
-                <?php echo "<td>" . $untypebien['id_type_bien'] . "</td>"; ?>
+            <tr>  
                 <td>
                 <?php echo "<input type='text' class='form-control' "
                 . "id='lib_type_bien".$untypebien['lib_type_bien']."' "
@@ -22,10 +25,8 @@
                 <td>
                     <button name='modifier'  value="<?php echo $untypebien['id_type_bien'];?>" type="submit"  class="btn btn-primary">Modifier</button>
                 </td>
-                <td>
-                   
-                        <button name='supprimer' value="<?php echo $untypebien['id_type_bien'];?>">Supprimer</button>
-                   
+                <td>    
+                        <button name='supprimer' value="<?php echo $untypebien['id_type_bien'];?>">Supprimer</button>   
                 </td>
             </tr>
     
@@ -37,5 +38,5 @@
             <td><button id='ajouter' name='ajouter' type="submit" class="btn btn-primary">Ajouter</button></td>
         </tr>
     </form>
-
-    
+</table> 
+<a href="../front/acceuil.php"><img src="../photo/home.jfif" title="Page d'accueil"></a>
