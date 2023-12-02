@@ -93,6 +93,24 @@
         $stmt=$code->Query($sql);
         return $stmt;
         }
+        public function getAllBiensCommune($id_com) {
+        $sql = "SELECT * FROM biens WHERE Idcom=".$id_com;
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        return $stmt;
+        }
+        public function getAllBiensCommuneNbcouchage($id_com,$nb_couchage) {
+        $sql = "SELECT * FROM biens WHERE Idcom=".$id_com." AND nb_couchage=".$nb_couchage;
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        return $stmt;
+        }
+        public function getAllBiensNbcouchage($nb_couchage) {
+        $sql = "SELECT * FROM biens WHERE nb_couchage=".$nb_couchage;
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        return $stmt;
+        }
         public function getCommuneBiens($id_com) {
         $sql = "SELECT nom_commune_postal FROM communes WHERE Idcom=".$id_com;
         $code = $this->code;
@@ -115,6 +133,10 @@
         $sql = "INSERT INTO biens (nom_bien, rue_bien, idcom, superficie_bien, nb_couchage, nb_piece, nb_chambre, descriptif, ref_bien, statut_bien, id_type_bien) VALUES ('". $nom_bien."','".$rue_bien."','".$idcom."','".$superficie_bien."','".$nb_couchage."','".$nb_piece."','".$nb_chambre."','".$descriptif."','".$ref_bien."','".$statut_bien."','".$id_type_bien."')";
         $code = $this->code;
         $stmt=$code->Query($sql);
+        // Ajout du tarif au bien
+        $id_bien=$code->lastInsertId();
+        $sql = "INSERT INTO tarif (date_deb_tarif,date_fin_tarif,prix_loc,id_bien) VALUES ('2023-01-01','2024-12-31',100,".$id_bien.")";
+        $stmt2=$code->Query($sql);
         return $stmt;
         }
 

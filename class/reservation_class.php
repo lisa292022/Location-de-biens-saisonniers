@@ -2,7 +2,7 @@
 
     require_once ('../include/connexion.inc.include');
 
-    class Reservation{
+    class Reservations{
         
         private $id_reservation,$date_resa,$date_deb_resa,$date_fin_resa,$commentaire,$moderation,$annulation_resa,$id_client,$id_bien,$code;
         
@@ -75,7 +75,7 @@
         }
         
         public function getAllReservation(){
-            $SQL="SELECT * FROM reservation";
+            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title FROM reservation";
             $code = $this->code;
             $stmt=$code->Query($SQL);
             return $stmt;
@@ -96,9 +96,10 @@
               
         }*/
         
-        public function insertReservation($date_deb_resa,$date_fin_resa,$commentaire,$moderation,$annulation_resa,$id_client,$id_bien) {          
+        public function insertReservation($date_deb_resa,$date_fin_resa,$id_client,$id_bien) {          
             $SQL="INSERT INTO reservation (date_deb_resa,date_fin_resa,commentaire,moderation,annulation_resa,id_client,id_bien) "
-                    . "VALUES ('".$date_deb_resa."','".$date_fin_resa."','".$commentaire."','".$moderation."','".$annulation_resa."','".$id_client."','".$id_bien."')";
+                    . "VALUES ('".$date_deb_resa."','".$date_fin_resa."',' ',' ',' ',$id_client,$id_bien)";
+            echo $SQL;
             $code = $this->code;
             $stmt=$code->Query($SQL);
             return $stmt;
@@ -118,6 +119,7 @@
             $stmt=$code->Query($SQL);
             return $stmt;
         }
+        
     }
 
 

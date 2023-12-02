@@ -24,12 +24,13 @@
             <caption>CE LOGEMENT</caption>
             <thead>
                     <tr>
+                        <th> Id </th> 
                         <th> Nom </th> 
                         <th> Superficie </th> 
                         <th> Nombre de personnes </th>
                         <th> Nombre de pièces </th>
                         <th> Descriptif </th>
-                        <th colspan="1"> Voir les disponibilités </th>
+                        <th colspan="1"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,8 +41,9 @@
                     $id_bien = $_POST['consulter'];
                     $appel = $o_Biens->getOneBien($id_bien);
                     while($row = $appel->fetch(PDO::FETCH_ASSOC)):?>
-                    <form id='consulter' name='consulter' action='consulter_bien.php' method='POST'>
+                    <form id='reserver' name='reserver' action='..\reservation\affichage_test.php' method='POST'>
                         <tr>
+                            <td><?php echo "<input type='text' class='form-control' id='id_bien' name='id_bien' value='".$row['id_bien']."'"; ?></td>
                             <td><?php echo $row['nom_bien']?> </td>
                             <td><?php echo $row['superficie_bien']?> </td>
                             <td><?php echo $row['nb_couchage']?> </td>
@@ -51,18 +53,18 @@
                         <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['nom_bien']."' name='nom_bien".$row['nom_bien']."' value='".$row['nom_bien']."'"; ?></td>
                         <td><?php echo "<input type='text' class='form-control' id='superficie_bien".$row['superficie_bien']."' name='superficie_bien".$row['superficie_bien']."' value='".$row['superficie_bien']."'"; ?></td>
                         -->
-                        
-                        <td><?php echo "<input type='week' name='week' id='week' min='2023-W44' max='2024-W52' required"; ?></td>
-                        
+                                                                       
                         <td>
                             <button name='reserver' value="<?php echo $row['id_bien'];?>" type='submit'>Voir les disponibilités</button>
+                            <!--a href="..\reservation\affichage_test.php?client=autre">Réserver</a-->
                         </td>
                     </form>  
-                <th><img src="../photo/bien_photo_1.PNG"></th>
-                <IMG src="../photo/bien_photo_1.jfif" style="width:200px;height:150px;">
+                <!--th><img src="../photo/bien_photo_1.PNG"></th-->
+                <!--IMG src="../photo/bien_photo_1.jfif" style="width:200px;height:150px;"-->
                 <h1 align = center>
-                    <img src="../photo/bien_photo_1.png"> 
-                    <font size ="50pt" face = "verdana"> </font>
+                    <IMG src="../photo/bien_photo_1.jfif" style="width:200px;height:150px;">
+                    <!--img src="../photo/bien_photo_1.png"> 
+                    <font size ="100pt" face = "verdana"> </font-->
                 </h1>
                         </tr>
                     <?php endwhile;?> 

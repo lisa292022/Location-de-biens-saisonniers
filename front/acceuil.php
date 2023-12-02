@@ -1,13 +1,18 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Accueil</title>
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/script.js"></script>
         <link href="../style.css" rel="stylesheet" />
         <?php
         include('../include/connexion.inc.include');
         include('../class/biens_class.php');
+        include('../class/commune_class.php');
         $o_Biens=new Biens(1);
         $o_Biens->setCode($code);
+        $ocommune = new Commune(1);
+        $ocommune->setcode($code);
         ?>
         
     </head>
@@ -18,7 +23,7 @@
             <font size ="3pt" face = "verdana" color='#AF8F8F'>
                 <li class="bouton">
                     <a href="">
-                       Ajoutez votre logement
+                       Aide
                     </a>   
                 </li>
                                 
@@ -33,28 +38,33 @@
                         if ($_SESSION['admin'] == "oui") {
                         ?>
                             <li class="bouton">
-                            <a href="..\clients\clients_affichage.php">
-                            Gérer clients
-                            </a>   
+                            <a href="..\clients\clients_affichage.php">Clients</a>   
+                            </li>
+                            <li class="bouton">
+                            <a href="..\biens\biens_affichage.php">Biens</a>   
+                            </li>
+                            <li class="bouton">
+                            <a href="..\type_bien\type_bien_affichage.php">Types bien</a>   
+                            </li>
+                            <li class="bouton">
+                            <a href="..\photos\photo_affichage.php">Photos</a>   
+                            </li>
+                            <li class="bouton">
+                            <a href="..\reservation\affichage_test.php?client=admin">Réservations</a>   
                             </li>
                             <?php
                         }
                         else {
                              ?>
                             <li class="bouton">
-                            // TODO
-                            <a href="..\bien\reservation_affichage.php">
-                            Gérer réservation
-                            </a>   
+                            <a href="..\reservation\affichage_test.php?client=autre">Réservation</a>   
                             </li>
                             <?php
                             
                         }
                     ?>
                     <li class="bouton">
-                    <a href="..\connexion\deconnexion.php">
-                       Se déconnecter
-                    </a>   
+                    <a href="..\connexion\deconnexion.php">Se déconnecter</a>   
                     </li>
                     <?php 
                 
@@ -62,9 +72,10 @@
                     else {
                     ?>
                         <li class="bouton">
-                         <a href="..\connexion\connexion.php">
-                         Se connecter
-                        </a>   
+                         <a href="..\connexion\connexion.php">Se connecter</a>   
+                        </li>
+                        <li class="bouton">
+                        <a href="..\inscription\inscription.php">S'inscrire</a>   
                         </li>
                         <?php
                     } 
@@ -72,66 +83,97 @@
                 else {
                     ?>
                         <li class="bouton">
-                         <a href="..\connexion\connexion.php">
-                         Se connecter
-                        </a>   
+                         <a href="..\connexion\connexion.php">Se connecter</a>   
+                        </li>
+                        <li class="bouton">
+                        <a href="..\inscription\inscription.php">S'inscrire</a>   
                         </li>
                         <?php
                     }
                 ?>
-                    
-                    
-                
-                <li class="bouton">
-                    <a href="..\inscription\inscription.php">
-                       S'inscrire
-                    </a>   
-                </li>
+  
             </font>
             </h1>
             </header>
-            <main>
+            <!--main-->
             <h1>Trouvez la location de vos rêves</h1>
-            <form>
-                <label for="destination">Destination :</label>
-                <input type="text" id="destination" name="destination" placeholder="Entrez une destination">
+            
+            <form id='rechercher' name='rechercher' value="3" action='acceuil.php' ype="file" class="btn btn-primary" method='POST'>
                 
-                <br/><label for="destination">Date de début :</label>
+                
+                <br/><label for="debut">Date de début :</label>
                 <input type="date" id="date_debut" name="date_fin">
-                <br/><label for="destination">Date de fin :</label>
+                <br/><label for="fin">Date de fin :</label>
                 <input type="date" id="date_debut" name="date_fin">
                 
-                <br/><label for="nb_personne">Nombre de personnes :</label>
+                <br/><label for="vide"> </label>       
+                <br/><label for="couchage">Nombre de personnes :</label>
                 <input type="number" id="nb_personne" name="nb_personne" placeholder="Entrez un nombre"> 
                 
-                <button type="submit">Rechercher</button>
+                <br/><label for="destination">Destination :</label>
+                <br><td>
+                    <div class="input_container">
+                        <input type="text" id='cop_vil_bien' name='cop_vil_bien' placeholder='Indiquez la ville et le code postal du bien' onkeyup="autocompletbien('cop_vil_bien', 'cop_vil_bien_list' )">
+                            <ul id="cop_vil_bien_list"></ul>
+                        </div>
+                </td>
+                
+
+                <td><button id='rechercher' name='rechercher' type="submit" class="btn btn-primary" value="<?php echo $cop_vil_bien;?>">Rechercher</button></td>
+                
             </form>
-            
+
             <table>
                 <caption>Résultat de votre recherche</caption>
-                <thead>
                     <tr>
                       <th>Nom du bien</th>
-                      <th>Ville</th>
+                      <th>Destination</th>
                       <th>Nombre de couchages</th>
                       <th>Prix</th>
                       <th colspan="1"><th>
                     </tr>
                     <tr>
                     <?php
-                    $appel = $o_Biens->getAllBiens();
+                    
+                    if (isset($_POST['rechercher']))
+                    {
+                        if ($_POST['cop_vil_bien']!="" and $_POST['nb_personne']!="") 
+                        {
+                            $idcom = $ocommune->getidcomCouple($_POST['cop_vil_bien']);
+                            $appel = $o_Biens->getAllBiensCommuneNbcouchage($idcom,$_POST['nb_personne']);
+                            //$appel = $o_Biens->getAllBiensCommune($idcom);
+                        }
+                        if ($_POST['cop_vil_bien']!="" and $_POST['nb_personne']=="")
+                            {
+                                $idcom = $ocommune->getidcomCouple($_POST['cop_vil_bien']);
+                                $appel = $o_Biens->getAllBiensCommune($idcom);
+                            }
+                        if ($_POST['cop_vil_bien']=="" and $_POST['nb_personne']!="") 
+                            {
+                               $appel = $o_Biens->getAllBiensNbcouchage($_POST['nb_personne']);
+                            } 
+                        if ($_POST['cop_vil_bien']=="" and $_POST['nb_personne']=="") 
+                            {
+                                $appel = $o_Biens->getAllBiens();
+                            }
+                    }
+                    else
+                    {
+                        $appel = $o_Biens->getAllBiens();
+                    }    
+                    //$appel = $o_Biens->getAllBiens();
                     while($row = $appel->fetch(PDO::FETCH_ASSOC)):?>
                     <form id='consulter' name='consulter' action='consulter_bien.php' method='POST'>
                         <tr>
-                        <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."'"; ?></td>
+                        <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."'"."disabled='disabled'"; ?></td>
                         
-                        <?php $MonBien = $o_Biens->getCommuneBiens($row['Idcom']); $row2=$MonBien->fetch(PDO::FETCH_ASSOC); $MonBienTexte = $row2['nom_commune_postal']; ?>
-                        <td><?php echo "<input type='text' class='form-control' id='communes' name='communes' value='".$MonBienTexte."'"; ?></td>
+                        <?php $MonBien = $ocommune->getnom_commune_postal_code_postal($row['Idcom']); $row2=$MonBien->fetch(PDO::FETCH_ASSOC); $MonBienTexte = $row2['nom_commune_postal']." ".$row2['code_postal']; ?>
+                        <td><?php echo "<input type='text' class='form-control' id='communes' name='communes' value='".$MonBienTexte."'"."disabled='disabled'"; ?></td>
                         
-                        <td><?php echo "<input type='text' class='form-control' id='nb_personne".$row['id_bien']."' name='nb_personne".$row['id_bien']."' value='".$row['nb_chambre']."'"; ?></td>
+                        <td><?php echo "<input type='text' class='form-control' id='nb_personne".$row['id_bien']."' name='nb_personne".$row['id_bien']."' value='".$row['nb_couchage']."'"."disabled='disabled'"; ?></td>
                         
                         <?php $MonTarif = $o_Biens->getTarifBien($row['id_bien']); $row4=$MonTarif->fetch(PDO::FETCH_ASSOC); $MonTarifTexte = $row4['prix_loc']; ?>
-                        <td><?php echo "<input type='text' class='form-control' id='tarif' name='tarif' value='".$MonTarifTexte."'"; ?></td>
+                        <td><?php echo "<input type='text' class='form-control' id='tarif' name='tarif' value='".$MonTarifTexte."'"."disabled='disabled'"; ?></td>
                         
                         
                         <td colspan="1"><button id='consulter' name='consulter' value="<?php echo $row['id_bien'];?>" type="file" class="btn btn-primary">Consulter</button></td>
@@ -144,24 +186,8 @@
                     </form>                        
                         </tr>
                     <?php endwhile;?> 
-                  <tbody>
-                    <tr>
-                      <td>Nom bien 1</td>
-                      <td>Ville 1</td>
-                      <td>1</td>
-                      <td>1000</td>
-                      <td><button type="submit">Consulter</button></td>
-                    </tr>
-                    <tr>
-                      <td>Nom bien 2</td>
-                      <td>Ville 2</td>
-                      <td>4</td>
-                      <td>1500</td>
-                      <td><button type="submit">Consulter</button></td>
-                    </tr>
-                  </tbody>
             </table>
-            </main>
+            <!--/main-->
     </body>
 </html>
 
