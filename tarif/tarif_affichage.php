@@ -1,4 +1,5 @@
 <td>Liste Tarif</td>
+<link href="../style.css" rel="stylesheet" />
 <title>Liste des tarifs</title>
 <form name="liste_tarif" methode="POST" action="tarif_traitement.php">
 <?php 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <title>Formulaire d'inscription</title>
     <link rel="stylesheet" href="style.css">
 </head>

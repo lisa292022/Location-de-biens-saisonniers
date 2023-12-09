@@ -2,6 +2,7 @@
 
 <head>
         <meta charset="UTF-8">
+        <link href="../style.css" rel="stylesheet" />
         <center>Liste des photos</center> 
 </head>
 <body>

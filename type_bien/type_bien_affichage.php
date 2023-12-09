@@ -1,3 +1,4 @@
+<link href="../style.css" rel="stylesheet" />
 <center>Liste des types de biens</center>
 <table>
     <tr>

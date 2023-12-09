@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="../style.css" rel="stylesheet" />
     <title>Page de connexion</title>
     <link rel="stylesheet" href="style.css">
 </head>

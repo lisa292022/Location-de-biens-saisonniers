@@ -4,7 +4,7 @@
     <head>
         <title>Page de déconnexion</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
+        <link href="../style.css" rel="stylesheet" />
     </head>
     <body>       
         <form method="POST" action="trait.php">
