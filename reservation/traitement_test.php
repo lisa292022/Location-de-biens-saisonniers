@@ -19,37 +19,37 @@ if (!isset($_SESSION['user'])) {
 $uid = $_SESSION['user'];  // set your user id settings
 $datetime_string = date('c', time());
 
-if(isset($_POST['ajouter'])){
+/*if(isset($_POST['ajouter'])){
         echo "<script>alert('Etes-vous certain de vouloir ajouter ?');</script>;";
         $oReservation->insertReservation($_POST['startTime'],$_POST['endTime'],intval($_POST['id_client']),intval($_POST['id_bien']));
         header('Location: affichage_test.php');
     }
-    
+*/    
    
     
     
-if (isset($_POST['action']) or isset($_GET['view'])) {
-    if (isset($_GET['view'])) {
+if (isset($_POST['action'])) {
+    /*if (isset($_GET['view'])) {
         header('Content-Type: application/json');
         $start = $_GET["start"];
-        $end =  $_GET["end"];
+        $end = $_GET["end"];
 
-        $result = "SELECT `id_reservation` as `id`, `date_deb_resa` as `start`, `date_fin_resa` as `end`, `commentaire` as `title` FROM  `reservation` WHERE (DATE(date_deb_resa) >= '$start' AND DATE(date_deb_resa) <= '$end') AND id_client='" . $uid . "'";
+        $stmt = $code->prepare("SELECT `id_reservation` as `id`, `date_deb_resa` as `start`, `date_fin_resa` as `end`, `title` as `title` FROM  `reservation` WHERE (DATE(date_deb_resa) >= '$start' AND DATE(date_deb_resa) <= '$end') AND id_client='" . $uid . "'");
+        $stmt->bind_param("sss", $start, $end, $uid);
+        $stmt->execute();
+        $stmt->bind_result($id, $start, $end, $title);
+        
         $events = array();
-
-        while ($row = $result) {
-            $events[] = $row;
-        }
-
-        echo json_encode($events);
-        exit;
-    } elseif ($_POST['action'] == "add") {
+        while ($stmt->fetch()) {
+            $events[] = array('id' => $id, 'start' => $start, 'end' => $end, 'title' => $title);
+        }*/
+    if ($_POST['action'] == "add") {
         // Ajoute une réservation
         echo "<script>alert('Etes-vous certain de vouloir ajouter ???');</script>;";
-        $oReservation->insertReservation($_POST['start'],$_POST['end'],intval($_POST['id_client']),intval($_POST['id_bien']));
-        header('Location: affichage_test.php');
+        $oReservation->insertReservation($_POST['start'],$_POST['end'],intval($_POST['id_client']),intval($_POST['id_bien']),$_POST['title']);
+        /*header('Location: affichage_test.php');
         header('Content-Type: application/json');
-        echo '{"id":"' . $code . '"}';
+        echo '{"id":"' . $code . '"}';*/
         exit;
     } elseif ($_POST['action'] == "update") {
         $oReservation->updateReservation($_POST['date_resa'],$_POST['date_deb_resa'],$_POST['date_fin_resa'],$_POST['commentaire'],$_POST['moderation'],$_POST['annulation_resa'],$id_client,$id_bien);

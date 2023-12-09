@@ -3,9 +3,19 @@
 <head>
     
     
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/fullcalendar.css" rel="stylesheet" />
     <link href="css/fullcalendar.print.css" rel="stylesheet" media="print" />
+    
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script-->
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/fullcalendar.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/gcal.js"></script>
+    
     <?php
     include("../reservation/traitement_test.php");
     include("../include/connexion.inc.include");
@@ -35,7 +45,7 @@
         }
     }
     
-    if (isset($_GET['view'])) {
+    /*if (isset($_GET['view'])) {
         header('Content-Type: application/json');
         $start = $_GET["start"];
         $end = $_GET["end"];
@@ -83,6 +93,7 @@
         //echo '[{"id":2,"title":" ","start":"2023-11-29 00:00:00","end":"2023-11-29 12:00:00"},{"id":3,"title":" ","start":"2023-11-30 00:00:00","end":"2023-11-30 12:00:00"},{"id":4,"title":" ","start":"2023-12-01 00:00:00","end":"2023-12-01 12:00:00"},{"id":8,"title":" ","start":"2023-11-29 00:00:00","end":"2023-11-29 12:00:00"},{"id":11,"title":" ","start":"2023-11-29 00:00:00","end":"2023-11-29 12:00:00"},{"id":25,"title":" ","start":"2023-11-30 00:00:00","end":"2023-11-30 12:00:00"},{"id":26,"title":" ","start":"2023-12-01 00:00:00","end":"2023-12-01 12:00:00"},{"id":29,"title":" ","start":"2023-11-28 00:00:00","end":"2023-11-29 12:00:00"},{"id":31,"title":" ","start":"2023-11-29 00:00:00","end":"2023-11-29 12:00:00"},{"id":33,"title":" ","start":"2023-12-01 00:00:00","end":"2023-12-01 12:00:00"},{"id":35,"title":" ","start":"2023-11-30 00:00:00","end":"2023-11-30 12:00:00"},{"id":36,"title":" ","start":"2023-12-02 00:00:00","end":"2023-12-02 12:00:00"},{"id":37,"title":" ","start":"2023-12-01 00:00:00","end":"2023-12-01 12:00:00"}]';
         exit;
     }
+     */
     ?>
     
     
@@ -125,8 +136,8 @@
         
       </div>
       <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+        <button type="submit" class="btn btn-primary" id="submitButton">Sauver</button>
         <!--form id="ajouter" name="ajouter" action="traitement_test.php" method="POST">
             <?php $id_bien=1; $id_client=3 ?>
         <button type="submit" class="btn btn-primary" id="ajouter" name="ajouter">Ajouter</button>
@@ -158,8 +169,8 @@
         </div>
         <input type="hidden" id="eventID"/>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+            <button type="submit" class="btn btn-danger" id="deleteButton">Supprimer</button>
         </div>
     </div>
 </div>
@@ -180,13 +191,14 @@
 
 </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/fullcalendar.js"></script>
     <?php 
-    include '../reservation/traitement_test.php';
+    //include '../reservation/traitement_test.php';
     ?>
     
     

@@ -80,6 +80,26 @@
             $stmt=$code->Query($SQL);
             return $stmt;
         }
+        public function getAllReservationBien($id_bien){
+            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client FROM reservation WHERE id_bien='".$id_bien."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
+        
+        public function getAllReservationClient($id_client){
+            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client FROM reservation WHERE id_client='".$id_client."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
+        
+         public function getAllReservationClientBien($id_client,$id_bien){
+            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client FROM reservation WHERE id_client='".$id_client."' AND id_bient='".$id_bien."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
         
         public function getOneReservation($id_reservation){
             $SQL="SELECT * FROM reservation WHERE id_reservation=".$id_reservation;
@@ -96,9 +116,9 @@
               
         }*/
         
-        public function insertReservation($date_deb_resa,$date_fin_resa,$id_client,$id_bien) {          
-            $SQL="INSERT INTO reservation (date_deb_resa,date_fin_resa,commentaire,moderation,annulation_resa,id_client,id_bien) "
-                    . "VALUES ('".$date_deb_resa."','".$date_fin_resa."',' ',' ',' ',$id_client,$id_bien)";
+        public function insertReservation($date_deb_resa,$date_fin_resa,$id_client,$id_bien,$title) {          
+            $SQL="INSERT INTO reservation (date_deb_resa,date_fin_resa,commentaire,moderation,annulation_resa,id_client,id_bien,title) "
+                    . "VALUES ('".$date_deb_resa."','".$date_fin_resa."',' ',' ',' ',$id_client,$id_bien,'".$title."')";
             echo $SQL;
             $code = $this->code;
             $stmt=$code->Query($SQL);

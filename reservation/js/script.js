@@ -3,7 +3,7 @@ $(document).ready(function(){
             header:{
                 left: 'prev,next today',
                 center: 'title',
-                right: 'agendaWeek,agendaDay'
+                right: 'month,agendaWeek'
             },
             //defaultView: 'agendaWeek',
             defaultView: 'month',
@@ -13,11 +13,11 @@ $(document).ready(function(){
                         
             //events: 'affichage_test.php?view=1&toto=1',
             //events: 'traitement_test.php?view=1',
-            
+            events: 'json-events-bd.php?view=1',
             //events qui marche
             //events: [{"id":2,"title":"Autre client","start":"2023-11-29 00:00:00","end":"2023-11-29 05:00:00","startEditable":false},{"id":3,"title":"MOI","start":"2023-11-30 12:00:00","end":"2023-11-30 20:00:00"}],
             
-            events:{
+            /*events:{
                 url: 'affichage_test.php?view=1',
                 cache: true,
                 type: 'GET',
@@ -28,7 +28,7 @@ $(document).ready(function(){
                    alert(json);
                    }
                 },
-            
+            */
             eventClick:  function(event, jsEvent, view) {
                 endtime = $.fullCalendar.moment(event.end).format('h:mm');
                 starttime = $.fullCalendar.moment(event.start).format('dddd, MMMM Do YYYY, h:mm');
@@ -127,7 +127,7 @@ $(document).ready(function(){
            var id_bien = "2"; //$('#id_bien').val();
            var id_client = "1"; //$('#id_client').val();
            
-           $.ajax({
+           /*$.ajax({
                url: 'affichage_test.php',
                data: 'action=add&title='+title+'&start='+startTime+'&end='+endTime,
                type: "POST",
@@ -141,13 +141,21 @@ $(document).ready(function(){
                    },
                    true);
                }
-           });
+           });*/
            
            $.ajax({
                url: 'traitement_test.php',
                data: 'action=add&title='+title+'&start='+startTime+'&end='+endTime+'&id_bien='+id_bien+'&id_client='+id_client,
                type: "POST",
                success: function(json) {
+                   $("#calendar").fullCalendar('renderEvent',
+                   {
+                       id: json.id,
+                       title: title,
+                       start: startTime,
+                       end: endTime,
+                   },
+                   true);
                    alert(json);
                    }
            });
@@ -166,7 +174,7 @@ $(document).ready(function(){
            var id_client = "1"; //$('#id_client').val();
            
            $.ajax({
-               url: 'affichage_test.php',
+               url: 'affichage_test2.php',
                data: 'action=add&title='+title+'&start='+startTime+'&end='+endTime,
                type: "POST",
                success: function(json) {
