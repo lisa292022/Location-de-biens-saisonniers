@@ -143,6 +143,7 @@ $(document).ready(function(){
                }
            });*/
            
+           
            $.ajax({
                url: 'traitement_test.php',
                data: 'action=add&title='+title+'&start='+startTime+'&end='+endTime+'&id_bien='+id_bien+'&id_client='+id_client,
@@ -158,6 +159,15 @@ $(document).ready(function(){
                    true);
                    alert(json);
                    }
+           });
+           
+           $.ajax({
+               url: 'affichage_test.php',
+               data: 'action=rafraichir',
+               type: "POST",
+               success: function(json) {
+                   //alert(json);
+               }
            });
            
        }

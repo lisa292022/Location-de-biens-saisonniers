@@ -47,9 +47,9 @@ if (isset($_POST['action'])) {
         // Ajoute une réservation
         echo "<script>alert('Etes-vous certain de vouloir ajouter ???');</script>;";
         $oReservation->insertReservation($_POST['start'],$_POST['end'],intval($_POST['id_client']),intval($_POST['id_bien']),$_POST['title']);
-        /*header('Location: affichage_test.php');
+        header('Location: affichage_test.php');
         header('Content-Type: application/json');
-        echo '{"id":"' . $code . '"}';*/
+        echo '{"id":"' . $code . '"}';
         exit;
     } elseif ($_POST['action'] == "update") {
         $oReservation->updateReservation($_POST['date_resa'],$_POST['date_deb_resa'],$_POST['date_fin_resa'],$_POST['commentaire'],$_POST['moderation'],$_POST['annulation_resa'],$id_client,$id_bien);
