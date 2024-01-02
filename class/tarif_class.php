@@ -64,8 +64,8 @@
             return $stmt;   
         }
         
-        public function insertTarif($id_tarif,$date_deb_tarif,$date_fin_tarif,$prix_loc,$id_bien) {          
-            $SQL="INSERT INTO tarif (id_tarif,date_deb_tarif,date_fin_tarif,prix_loc,id_bien) VALUES ('".$id_tarif."','".$date_deb_tarif."','".$date_fin_tarif."','".$prix_loc."','".$id_bien."')";
+        public function insertTarif($date_deb_tarif,$date_fin_tarif,$prix_loc,$id_bien) {          
+            $SQL="INSERT INTO tarif (date_deb_tarif,date_fin_tarif,prix_loc,id_bien) VALUES ('".$date_deb_tarif."','".$date_fin_tarif."','".$prix_loc."','".$id_bien."')";
             $code = $this->code;
             $stmt=$code->Query($SQL);
             return $stmt;

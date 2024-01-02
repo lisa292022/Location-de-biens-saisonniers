@@ -1,22 +1,23 @@
+/* Page acceuil */
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f2f2f2;
-    background: url('parallax.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
 header {
-    background-color: #333;
+    background: linear-gradient(15deg,rgba(115, 153, 231, 0), rgba(68, 119, 223, 0.8) 135%);
     color: #fff;
     padding: 20px;
-    text-align: center;
+    text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header img {
-    height: 80px; /* Ajusté la hauteur de l'image */
+    height: 80px; 
 }
 
 .bouton {
@@ -26,32 +27,45 @@ header img {
 
 .bouton a {
     text-decoration: none;
-    color: #fff;
+    color: #4477DF;
     font-weight: bold;
     margin-right: 20px; /* Ajout d'une marge à droite pour espacement */
 }
 
 main {
-    max-width: 1200px;
+    /* max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #7c8bc9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    background-image: url("./front/parallax.jpg");
+    /* modifier opacité du background */
+    background-size: cover;
+    padding-top : 2vh;
 }
 
 h1 {
     font-size: 32px;
-    color: #333;
+    margin-left: 3vw;
+}
+#h1acceuil {
+    font-size: 32px;
+    color: white;
     margin-bottom: 20px;
+    margin-left : 10%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 form {
-    max-width: 600px;
+    max-width: 40vw;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* box shadow plus epaisse */
+    box-shadow: 2 4px 4px rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
 }
+
 
 form label {
     display: block;
@@ -60,20 +74,24 @@ form label {
 }
 
 form input {
-    width: 100%;
+    width: 36vw;
+    margin-left : 1vw;
     padding: 10px;
     margin-bottom: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+#rechercher input{
+    margin-left: 2vw;
+}
 
 form button {
     width: 100%;
-    background-color: #ff5a5f;
+    background: linear-gradient(100deg, rgba(68, 119, 223, 0.8), rgba(115, 153, 231, 0) 130%);
     color: #fff;
     padding: 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
 }
@@ -82,22 +100,122 @@ form button:hover {
     background-color: #333;
 }
 
-table {
-    width: 100%;
+#tableacceuil {
+    width: 80vw;
+    margin-left : 10%;
     border-collapse: collapse;
     margin-top: 20px;
 }
-
 table, th, td {
     border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.2); /* blanc joli */ 
+    height: auto;
+
 }
 
-th, td {
+#tableacceuil th, td {
     padding: 15px;
     text-align: center;
+    color: white;
 }
+
+td > button {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 1vh 2vw;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+td > button:hover {
+    background-color: #333;
+    color: #fff;
+    transform: scale(1.2, 1.2);
+}
+td > input {
+    text-align: center;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#tablebiens {
+    width: 100vw;
+    border-collapse: collapse;
+}
+
+#tablebiens table {
+    height: auto;
+    width: 100%;
+}
+
+#tablebiens th {
+    padding: 8px; /* Ajoutez un padding pour définir la hauteur de la cellule */
+    text-align: center;
+    color: black;
+    border: none;
+}
+
+#tablebiens td {
+    max-width: 12vw;
+    margin: 0;
+    padding: 0;
+}
+
+
+#tablebiens input {
+    border: none;
+    text-align: center;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+#tablebiens button {
+    padding-left: 0.3vw;
+    padding-right: 0.3vw;
+}
+#tablebiens .petit {
+    width: 4vw;
+    margin : 0;
+    padding: 0;
+}
+
+#tablebiens textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
+    overflow: hidden;
+    transition: 1s;
+    margin: 0;
+    padding: 0;
+}
+
+#tablebiens textarea:hover {
+    display: flex;
+    /* sortir du tableau et s'afficher au-dessus en grand */
+    position: absolute;
+    margin-top: -2.5vh;
+    z-index: 1;
+    width: 20vw;
+    height: 30vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+
 
 caption {
     margin-bottom: 10px;
     font-weight: bold;
+    color: white;
+}
+
+a {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+}
+
+a img {
+    width: 50px;
+    height: 50px;
 }

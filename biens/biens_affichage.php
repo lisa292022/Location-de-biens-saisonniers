@@ -10,7 +10,7 @@
     <center>Liste des Biens</center>
     <!--link rel="stylesheet" href="css/style.css" /-->
     <div class="container">
-    <table>
+    <table id="tablebiens">
     <tr>
                       <th>Nom</th>
                       <th>Adresse</th>
@@ -65,24 +65,24 @@
 				<ul id="cop_vil_bien_list<?php echo $row['id_bien']; ?>"></ul>
                         </td>
                         
-                        <td><?php echo "<input type='text' class='form-control' id='superficie_bien".$row['id_bien']."' name='superficie_bien".$row['id_bien']."' value='".$row['superficie_bien']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control' id='nb_couchage".$row['id_bien']."' name='nb_couchage".$row['id_bien']."' value='".$row['nb_couchage']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control' id='nb_piece".$row['id_bien']."' name='nb_piece".$row['id_bien']."' value='".$row['nb_piece']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control' id='nb_chambre".$row['id_bien']."' name='nb_chambre".$row['id_bien']."' value='".$row['nb_chambre']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control' id='descriptif".$row['id_bien']."' name='descriptif".$row['id_bien']."' value='".$row['descriptif']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control' id='ref_bien".$row['id_bien']."' name='ref_bien".$row['id_bien']."' value='".$row['ref_bien']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control' id='statut_bien".$row['id_bien']."' name='statut_bien".$row['id_bien']."' value='".$row['statut_bien']."'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='superficie_bien".$row['id_bien']."' name='superficie_bien".$row['id_bien']."' value='".$row['superficie_bien']."'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='nb_couchage".$row['id_bien']."' name='nb_couchage".$row['id_bien']."' value='".$row['nb_couchage']."'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='nb_piece".$row['id_bien']."' name='nb_piece".$row['id_bien']."' value='".$row['nb_piece']."'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='nb_chambre".$row['id_bien']."' name='nb_chambre".$row['id_bien']."' value='".$row['nb_chambre']."'"; ?></td>  
+                        <td><?php echo "<textarea class='form-control' id='descriptif".$row['id_bien']."' name='descriptif".$row['id_bien']."'>".$row['descriptif']."</textarea>"; ?></td>
+                        <td><?php echo "<input type='text' class='form-control petit' id='ref_bien".$row['id_bien']."' name='ref_bien".$row['id_bien']."' value='".$row['ref_bien']."'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='statut_bien".$row['id_bien']."' name='statut_bien".$row['id_bien']."' value='".$row['statut_bien']."'"; ?></td>  
                                
                         <?php $MonTypeBienTexte = $oTypebien->getLibTypeBien($row['id_type_bien']); ?>
-                        <td><?php echo "<input type='text' class='form-control' id='lib_type_bien".$row['id_bien']."' name='lib_type_bien".$row['id_bien']."' value='".$MonTypeBienTexte."'"; ?></td>                            
+                        <td><?php echo "<input type='text' class='form-control petit' id='lib_type_bien".$row['id_bien']."' name='lib_type_bien".$row['id_bien']."' value='".$MonTypeBienTexte."'"; ?></td>                            
                         
                         <td>
-                            <button name='modifier' value="<?php echo $row['id_bien'];?>" type='submit' class="btn btn-primary">Modifier</button>
+                            <button class="btn secondary" name='modifier' value="<?php echo $row['id_bien'];?>" type='submit' class="btn btn-primary">Modifier</button>
                         </td>
                         
                         <td>
                             <form id='supprimer' name='supprimer' action='biens_traitement.php' method='POST'>
-                            <button name='supprimer' value="<?php echo $row['id_bien'];?>" type='submit'>Supprimer</button>
+                            <button class="btn secondary" name='supprimer'  value="<?php echo $row['id_bien'];?>" type='submit'>Supprimer</button>
                             </form>
                         </td>
                         </form>
@@ -104,16 +104,16 @@
                             </div>
                         </td>
                             
-                        <td><input type="text" class="form-control" id="superfice_bien" name="superficie_bien" placeholder="Indiquez le superficie du bien"> </td>
-                        <td><input type="text" class="form-control" id="nb_couchage" name="nb_couchage" placeholder="Indiquez le nombre de couchage du bien"> </td>
-                        <td><input type="text" class="form-control" id="nb_piece" name="nb_piece" placeholder="Indiquez le nombre de piece"> </td>
-                        <td><input type="text" class="form-control" id="nb_chambre" name="nb_chambre" placeholder="Indiquez le nombre de chambre"> </td>
-                        <td><input type="text" class="form-control" id="descriptif" name="descriptif" placeholder="Indiquez le descriptif"> </td>
-                        <td><input type="text" class="form-control" id="ref_bien" name="ref_bien" placeholder="Indiquez la reférence du bien"> </td>
-                        <td><input type="text" class="form-control" id="statut_bien" name="statut_bien" placeholder="Indiquez le statut du bien"> </td>
+                        <td><input type="text" class="form-control petit" id="superfice_bien" name="superficie_bien" placeholder="superficie"> </td>
+                        <td><input type="text" class="form-control petit" id="nb_couchage" name="nb_couchage" placeholder="nombre de couchage"> </td>
+                        <td><input type="text" class="form-control petit" id="nb_piece" name="nb_piece" placeholder="nombre de piece"> </td>
+                        <td><input type="text" class="form-control petit" id="nb_chambre" name="nb_chambre" placeholder="nombre de chambre"> </td>
+                        <td><input type="text" class="form-control" id="descriptif" name="descriptif" placeholder="descriptif"> </td>
+                        <td><input type="text" class="form-control petit" id="ref_bien" name="ref_bien" placeholder="reférence du bien"> </td>
+                        <td><input type="text" class="form-control petit" id="statut_bien" name="statut_bien" placeholder="statut"> </td>
                        
                         
-                        <td><select class="form-control" id="lib_type_bien" name="lib_type_bien">
+                        <td><select class="form-control petit" id="lib_type_bien" name="lib_type_bien">
                                 <?php
                                     $all_type_bien = $oTypebien->getAllTypeBien();
                                     foreach($all_type_bien as $type_bien) {
@@ -129,7 +129,7 @@
                         </td>
                         
                         
-                        <td><button id='ajouter' name='ajouter' type="submit" class="btn btn-primary">Ajouter</button></td>
+                        <td><button id='ajouter' name='ajouter' type="submit" class="btn secondary">Ajouter</button></td>
                         </form>
                         
     </form>

@@ -18,13 +18,11 @@
     </head>
     <body>
         <header>
-            <h1 align = left>
+            <!-- <h1 align = left> -->
             <img src="../photo/moundef_computing.PNG"> 
             <font size ="3pt" face = "verdana" color='#AF8F8F'>
                 <li class="bouton">
-                    <a href="">
-                       Aide
-                    </a>   
+                     
                 </li>
                                 
                 <?php 
@@ -48,6 +46,9 @@
                             </li>
                             <li class="bouton">
                             <a href="..\photos\photo_affichage.php">Photos</a>   
+                            </li>
+                            <li class="bouton">
+                            <a href="..\tarif\tarif_affichage.php">Tarifs</a>   
                             </li>
                             <li class="bouton">
                             <a href="..\reservation\affichage_test.php?client=admin">Réservations</a>   
@@ -95,8 +96,8 @@
             </font>
             </h1>
             </header>
-            <!--main-->
-            <h1>Trouvez la location de vos rêves</h1>
+            <main>
+            <h1 id="h1acceuil">Trouvez la location de vos rêves</h1>
             
             <form id='rechercher' name='rechercher' value="3" action='acceuil.php' ype="file" class="btn btn-primary" method='POST'>
                 
@@ -123,14 +124,14 @@
                 
             </form>
 
-            <table>
+            <table id="tableacceuil">
                 <caption>Résultat de votre recherche</caption>
                     <tr>
                       <th>Nom du bien</th>
                       <th>Destination</th>
                       <th>Nombre de couchages</th>
                       <th>Prix</th>
-                      <th colspan="1"><th>
+                      <th colspan="1"></th>
                     </tr>
                     <tr>
                     <?php
@@ -187,7 +188,7 @@
                         </tr>
                     <?php endwhile;?> 
             </table>
-            <!--/main-->
+            </main>
     </body>
 </html>
 

@@ -2,7 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <link href="../style.css" rel="stylesheet" />
+        <!--link href="../style.css" rel="stylesheet" /-->
         <?php
         include('../include/connexion.inc.include');
         include('../class/biens_class.php');
@@ -10,6 +10,79 @@
         $o_Biens->setCode($code);
         $o_Biens->getOneBien(2);
         ?>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        a img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
         
     </head>
     <body>
