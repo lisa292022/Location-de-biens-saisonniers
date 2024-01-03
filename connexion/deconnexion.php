@@ -15,6 +15,7 @@
                     session_start();
                     $_SESSION['connecter'] = "non";
                     $_SESSION['admin'] = "non";
+                    $_SESSION['client'] = 0;
                     ?>
                 </fieldset>
         </form>        

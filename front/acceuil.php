@@ -33,6 +33,9 @@
                 if (isset($_SESSION['connecter'])) {
                     if ($_SESSION['connecter'] == "oui") {
                         //echo "Connecté le " ,date('Y m d H:i:s', $_SESSION['time']);
+                        // récupère l'id du client pour la réservation
+                        $id_client_connecte=$_SESSION['client'];
+                        // menu différent suivant le client ou l'admin
                         if ($_SESSION['admin'] == "oui") {
                         ?>
                             <li class="bouton">
@@ -71,6 +74,7 @@
                 
                     } 
                     else {
+                        $id_client_connecte=0;
                     ?>
                         <li class="bouton">
                          <a href="..\connexion\connexion.php">Se connecter</a>   
@@ -82,6 +86,7 @@
                     } 
                 }
                 else {
+                    $id_client_connecte=0;
                     ?>
                         <li class="bouton">
                          <a href="..\connexion\connexion.php">Se connecter</a>   
@@ -165,6 +170,7 @@
                     //$appel = $o_Biens->getAllBiens();
                     while($row = $appel->fetch(PDO::FETCH_ASSOC)):?>
                     <form id='consulter' name='consulter' action='consulter_bien.php' method='POST'>
+                        <?php echo "<input type='text' class='form-control' id='id_client' name='id_client' style='visibility: hidden' value='".$id_client_connecte."'"; ?>
                         <tr>
                         <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."'"."disabled='disabled'"; ?></td>
                         

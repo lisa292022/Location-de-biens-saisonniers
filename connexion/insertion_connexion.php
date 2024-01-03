@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // recherche si l'utilisateur est un administrateur
             $client = $requete->fetch();
             $id_client = $client['id_client'];
+            $_SESSION['client'] = $id_client;
             echo $id_client;
             $requete = $code->prepare("SELECT * FROM administrateurs WHERE id_client = :id_client");
             $requete->bindValue(":id_client", $id_client);

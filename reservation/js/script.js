@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function(id_bien){
         var calendar = $('#calendar').fullCalendar({
             header:{
                 left: 'prev,next today',
@@ -11,9 +11,9 @@ $(document).ready(function(){
             selectable: true,
             allDaySlot: false,
                         
-            //events: 'affichage_test.php?view=1&toto=1',
-            //events: 'traitement_test.php?view=1',
-            events: 'json-events-bd.php?view=1',
+            //events qui marche 
+            events: 'json-events-bd.php',
+            //events: 'json-events-bd.php?view=1?id_client=id_client?id_bien=id_bien',
             //events qui marche
             //events: [{"id":2,"title":"Autre client","start":"2023-11-29 00:00:00","end":"2023-11-29 05:00:00","startEditable":false},{"id":3,"title":"MOI","start":"2023-11-30 12:00:00","end":"2023-11-30 20:00:00"}],
             
@@ -29,6 +29,20 @@ $(document).ready(function(){
                    }
                 },
             */
+           
+           /*events:{
+                url: 'json-events-bd.php?view=1?id_client=8?id_bien=2',
+                data: 'action=init&id_client=8&id_bien=2' ,
+                type: 'POST',
+                error: function() {
+                    alert('there was an error while fetching events!');
+                    },
+                success: function(json) {
+                   alert(json);
+                   }
+                },
+           
+*/           
             eventClick:  function(event, jsEvent, view) {
                 endtime = $.fullCalendar.moment(event.end).format('h:mm');
                 starttime = $.fullCalendar.moment(event.start).format('dddd, MMMM Do YYYY, h:mm');
@@ -36,6 +50,9 @@ $(document).ready(function(){
                 $('#modalTitle').html(event.title);
                 $('#modalWhen').text(mywhen);
                 $('#eventID').val(event.id);
+                $('#starttime').val(event.start);
+                $('#modalid_client').text(event.id_client);
+                $('#modalid_bien').text(event.id_bien);
                 $('#calendarModal').modal();
             },
             
@@ -49,12 +66,19 @@ $(document).ready(function(){
                 $('#createEventModal #startTime').val(start);
                 $('#createEventModal #endTime').val(end);
                 $('#createEventModal #when').text(mywhen);
+                // ne marche pas si on met pas les valeurs en dur 2023/01/03
+                //$('#createEventModal #id_client').val(1);
+                //$('#createEventModal #id_bien').val(2);
+                //id_client = 1;
+                //id_bien = 2;
+                $('#createEventModal #id_client').text(id_client);
+                $('#createEventModal #id_bien').text(id_bien);
                 $('#createEventModal').modal('toggle');
            },
            eventDrop: function(event, delta){
                $.ajax({
                    url: 'affichage_test.php',
-                   data: 'action=update&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id ,
+                   data: 'action=deplace&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id ,
                    type: "POST",
                    success: function(json) {
                    //alert(json);
@@ -64,7 +88,7 @@ $(document).ready(function(){
            eventResize: function(event) {
                $.ajax({
                    url: 'affichage_test.php',
-                   data: 'action=update&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id,
+                   data: 'action=deplace&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id,
                    type: "POST",
                    success: function(json) {
                        //alert(json);
@@ -83,6 +107,12 @@ $(document).ready(function(){
            // We don't want this to act as a link so cancel the link action
            e.preventDefault();
            doDelete();
+       });
+       
+       $('#annuleButton').on('click', function(e){
+           // We don't want this to act as a link so cancel the link action
+           e.preventDefault();
+           doAnnuler();
        });
        
        // appelé par le bouton Delete
@@ -115,6 +145,37 @@ $(document).ready(function(){
                    }
            });
        }
+       
+       // appelé par le bouton Annuler
+       // annule un event
+       // annule une reservation en base
+       // fonction à garder
+       function doAnnuler(){
+           $("#calendarModal").modal('hide');
+           var eventID = $('#eventID').val();
+           /*$.ajax({
+               url: 'affichage_test.php',
+               data: 'action=annule&id='+eventID,
+               type: "POST",
+               success: function(json) {
+                   if(json == 1)
+                        $("#calendar").fullCalendar('removeEvents',eventID);
+                   
+                    
+                   
+               }
+           });*/
+           
+           $.ajax({
+               url: 'traitement_test.php',
+               data: 'action=annule&id='+eventID,
+               type: "POST",
+               success: function(json) {
+                   alert(json);
+                   }
+           });
+       }
+       
        // appelé par le Save
        // ajoute un event
        // ajoute une reservation en base
@@ -124,8 +185,10 @@ $(document).ready(function(){
            var title = $('#title').val();
            var startTime = $('#startTime').val();
            var endTime = $('#endTime').val();
-           var id_bien = "2"; //$('#id_bien').val();
-           var id_client = "1"; //$('#id_client').val();
+           //var id_bien = "2"; //$('#id_bien').val();
+           //var id_client = "1"; //$('#id_client').val();
+           var id_bien = $('#id_bien').val();
+           var id_client = $('#id_client').val();
            
            /*$.ajax({
                url: 'affichage_test.php',
@@ -155,6 +218,8 @@ $(document).ready(function(){
                        title: title,
                        start: startTime,
                        end: endTime,
+                       id_bien: id_bien,
+                       id_client: id_client,
                    },
                    true);
                    alert(json);

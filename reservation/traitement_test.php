@@ -47,14 +47,26 @@ if (isset($_POST['action'])) {
         // Ajoute une réservation
         echo "<script>alert('Etes-vous certain de vouloir ajouter ???');</script>;";
         $oReservation->insertReservation($_POST['start'],$_POST['end'],intval($_POST['id_client']),intval($_POST['id_bien']),$_POST['title']);
-        header('Location: affichage_test.php');
-        header('Content-Type: application/json');
-        echo '{"id":"' . $code . '"}';
+        //header('Location: affichage_test.php');
+        header('Refresh: 1;URL=affichage_test.php');
+        
+        //header('Content-Type: application/json');
+        //echo '{"id":"' . $code . '"}';
         exit;
     } elseif ($_POST['action'] == "update") {
-        $oReservation->updateReservation($_POST['date_resa'],$_POST['date_deb_resa'],$_POST['date_fin_resa'],$_POST['commentaire'],$_POST['moderation'],$_POST['annulation_resa'],$id_client,$id_bien);
+        $oReservation->updateReservation($_POST['id'],$_POST['date_resa'],$_POST['start'],$_POST['end'],$_POST['commentaire'],$_POST['moderation'],$_POST['annulation_resa'],$id_client,$id_bien);
         header('Location: affichage_test.php');
         exit;
+    } elseif ($_POST['action'] == "deplace") {
+        $oReservation->deplaceReservation($_POST['id'],$_POST['date_resa'],$_POST['start'],$_POST['end']);
+        header('Location: affichage_test.php');
+        exit;
+    } elseif ($_POST['action'] == "annule") {
+        // Supprime une réservation
+        $id_reservation = $_POST['id'];
+        $oReservation->annulerReservation($id_reservation);
+        header('Location: affichage_test.php');
+        exit;  
     } elseif ($_POST['action'] == "delete") {
         // Supprime une réservation
         $id_reservation = $_POST['id'];

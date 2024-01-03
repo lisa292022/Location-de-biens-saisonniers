@@ -75,27 +75,27 @@
         }
         
         public function getAllReservation(){
-            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title FROM reservation";
+            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, annulation_resa FROM reservation";
             $code = $this->code;
             $stmt=$code->Query($SQL);
             return $stmt;
         }
         public function getAllReservationBien($id_bien){
-            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client FROM reservation WHERE id_bien='".$id_bien."'";
+            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client, annulation_resa FROM reservation WHERE id_bien='".$id_bien."'";
             $code = $this->code;
             $stmt=$code->Query($SQL);
             return $stmt;
         }
         
         public function getAllReservationClient($id_client){
-            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client FROM reservation WHERE id_client='".$id_client."'";
+            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client, annulation_resa FROM reservation WHERE id_client='".$id_client."'";
             $code = $this->code;
             $stmt=$code->Query($SQL);
             return $stmt;
         }
         
          public function getAllReservationClientBien($id_client,$id_bien){
-            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client FROM reservation WHERE id_client='".$id_client."' AND id_bient='".$id_bien."'";
+            $SQL="SELECT id_reservation AS id, date_deb_resa AS start, date_fin_resa AS end, title, id_bien, id_client, annulation_resa FROM reservation WHERE id_client='".$id_client."' AND id_bient='".$id_bien."'";
             $code = $this->code;
             $stmt=$code->Query($SQL);
             return $stmt;
@@ -127,6 +127,27 @@
         }
         public function updateReservation($id_reservation,$date_resa,$date_deb_resa,$date_fin_resa,$commentaire,$moderation,$annulation_resa,$id_client,$id_bien) {
             $SQL="UPDATE reservation SET date_resa='".$date_resa."',date_deb_resa='".$date_deb_resa."',date_fin_resa='".$date_fin_resa."',commentaire='".$commentaire."',moderation='".$moderation."',annulation_resa='".$annulation_resa."',id_client='".$id_client."',id_bien='".$id_bien."' WHERE id_reservation='".$id_reservation."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
+        
+        public function deplaceReservation($id_reservation,$date_resa,$date_deb_resa,$date_fin_resa) {
+            $SQL="UPDATE reservation SET date_resa='".$date_resa."',date_deb_resa='".$date_deb_resa."',date_fin_resa='".$date_fin_resa."' WHERE id_reservation='".$id_reservation."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
+        
+        public function commenteReservation($id_reservation,$commentaire) {
+            $SQL="UPDATE reservation SET commentaire='".$commentaire."' WHERE id_reservation='".$id_reservation."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
+        
+        public function annulerReservation($id_reservation) {
+            $SQL="UPDATE reservation SET annulation_resa='1' WHERE id_reservation='".$id_reservation."'";
             $code = $this->code;
             $stmt=$code->Query($SQL);
             return $stmt;

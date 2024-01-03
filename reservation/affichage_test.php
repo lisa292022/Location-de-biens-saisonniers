@@ -42,7 +42,30 @@
         if (isset($_POST['id_bien']))
         {
             $id_bien=$_POST['id_bien'];
+            echo "bien:",$id_bien;
+            session_start();
+            if (isset($_SESSION['connecter'])) {
+                if ($_SESSION['connecter'] == "oui") {
+                    // mémorise l'id du bien pour la réservation
+                    $_SESSION['bien']=$id_bien;
         }
+    }
+            
+            
+        }
+        if (isset($_POST['id_client']))
+        {
+            // le client est connu car il est connecté
+            $id_client=$_POST['id_client'];
+            echo "client:",$id_client;
+        }
+        else
+        {
+            // le client est inconnu
+            $id_client=0;
+            echo "client:",$id_client;
+        }
+            
     }
     
     /*if (isset($_GET['view'])) {
@@ -121,6 +144,16 @@
                 <div class="field desc">
                     <input class="form-control" id="title" name="title" placeholder="Event" type="text" value="">
                 </div>
+                <label class="control-label" for="inputPatient">Bien:</label>
+                <div class="field desc">
+                    <input class="form-control" id="id_bien" name="id_bien" placeholder="Event" type="text" value="<?php echo $id_bien; ?>">   
+                    <!--input type="hidden" class="form-control" id="id_bien" name="id_bien" placeholder="Event" type="text" value="<?php echo $id_bien; ?>"-->
+                </div>
+                <label class="control-label" for="inputPatient">Client:</label>
+                <div class="field desc">
+                    <input class="form-control" id="id_client" name="id_client" placeholder="Event" type="text" value="<?php echo $id_client; ?>">
+                    <!--input type="hidden" class="form-control" id="id_client" name="id_client" placeholder="Event" type="text" value="<?php echo $id_client; ?>"-->
+                </div>
             </div>
             
             <input type="hidden" id="startTime"/>
@@ -133,20 +166,19 @@
             <div class="controls controls-row" id="when" style="margin-top:5px;">
             </div>
         </div>
-        
+                   
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
         <button type="submit" class="btn btn-primary" id="submitButton">Sauver</button>
         <!--form id="ajouter" name="ajouter" action="traitement_test.php" method="POST">
-            <?php $id_bien=1; $id_client=3 ?>
-        <button type="submit" class="btn btn-primary" id="ajouter" name="ajouter">Ajouter</button>
+            <!--?php $id_bien=1; $id_client=3 ?-->
+        <!--button type="submit" class="btn btn-primary" id="ajouter" name="ajouter">Ajouter</button-->
         </form-->
         
         <input type="hidden" id="startTime" name="startTime" class="form-control" />
         <input type="hidden" id="endTime" name="endTime" class="form-control"/>
-        <input type="hidden" id="id_bien" name="id_bien" class="form-control" value=2/>
-        <input type="hidden" id="id_client" name="id_client" class="form-control" value=1/>
+        
         
         <!--button type="submit" class="btn btn-primary" id="ajouter" name="ajouter">Ajouter</button-->
     </div>
@@ -161,16 +193,35 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Event Details</h4>
+            <h4 class="modal-title">Détails de la réservation</h4>
         </div>
         <div id="modalBody" class="modal-body">
         <h4 id="modalTitle" class="modal-title"></h4>
         <div id="modalWhen" style="margin-top:5px;"></div>
+        <div id="starttime" style="margin-top:5px;"></div>
+        <label class="control-label" for="inputPatient">id_client:</label>
+        <h4 id="modalid_client" class="modal-title"></h4>
+        <label class="control-label" for="inputPatient">id_bien:</label>
+        <h4 id="modalid_bien" class="modal-title"></h4>
         </div>
-        <input type="hidden" id="eventID"/>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-            <button type="submit" class="btn btn-danger" id="deleteButton">Supprimer</button>
+        <input type="hidden" id="eventID" name="eventID"/>
+             <button class="btn" data-dismiss="modal" aria-hidden="true">Retour</button>
+            <?php
+            // seulement les réservations à venir du client non annulées (en vert) sont annulables
+            // **** TODO ****
+            $couleur = "green";
+            if ($couleur == "green") { ?>
+                <button type="submit" class="btn btn-danger" id="annuleButton">Annulation</button>
+            <?php } ?>
+            
+            
+            <?php 
+            // seulement l'admin peut supprimer les réservations
+            if (isset($_SESSION['admin'])) {
+                if ($_SESSION['admin'] == "oui") { ?>
+                <button type="submit" class="btn btn-danger" id="deleteButton">Supprimer</button>
+            <?php } } ?>
+            
         </div>
     </div>
 </div>
@@ -193,7 +244,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--script src="js/jquery-3.7.1.min.js"></script-->
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/script.js" value="<?php echo $id_bien; ?>"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/fullcalendar.js"></script>

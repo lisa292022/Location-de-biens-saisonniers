@@ -111,10 +111,12 @@
                     <?php
                     // a remplacer avec l'identifiant du bien reçu
                     //$id_bien=2;
+                    $id_client = $_POST['id_client'];
                     $id_bien = $_POST['consulter'];
                     $appel = $o_Biens->getOneBien($id_bien);
                     while($row = $appel->fetch(PDO::FETCH_ASSOC)):?>
                     <form id='reserver' name='reserver' action='..\reservation\affichage_test.php' method='POST'>
+                        <?php echo "<input type='text' class='form-control' id='id_client' name='id_client' style='visibility: hidden' value='".$id_client."' "; ?>
                         <tr>
                             <td><?php echo "<input type='text' class='form-control' id='id_bien' name='id_bien' value='".$row['id_bien']."'"; ?></td>
                             <td><?php echo $row['nom_bien']?> </td>
