@@ -88,25 +88,25 @@
         }
         
         public function getAllBiens() {
-        $sql = "SELECT * FROM biens";
+        $sql = "SELECT * FROM biens WHERE statut_bien='1'";
         $code = $this->code;
         $stmt=$code->Query($sql);
         return $stmt;
         }
         public function getAllBiensCommune($id_com) {
-        $sql = "SELECT * FROM biens WHERE Idcom=".$id_com;
+        $sql = "SELECT * FROM biens WHERE Idcom=".$id_com." AND statut_bien='1'";
         $code = $this->code;
         $stmt=$code->Query($sql);
         return $stmt;
         }
         public function getAllBiensCommuneNbcouchage($id_com,$nb_couchage) {
-        $sql = "SELECT * FROM biens WHERE Idcom=".$id_com." AND nb_couchage=".$nb_couchage;
+        $sql = "SELECT * FROM biens WHERE Idcom=".$id_com." AND nb_couchage=".$nb_couchage." AND statut_bien='1'";
         $code = $this->code;
         $stmt=$code->Query($sql);
         return $stmt;
         }
         public function getAllBiensNbcouchage($nb_couchage) {
-        $sql = "SELECT * FROM biens WHERE nb_couchage=".$nb_couchage;
+        $sql = "SELECT * FROM biens WHERE nb_couchage=".$nb_couchage." AND statut_bien='1'";
         $code = $this->code;
         $stmt=$code->Query($sql);
         return $stmt;
