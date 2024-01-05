@@ -46,6 +46,18 @@
             $tableau_event[$i]['end']=$unstmt['end'];
             $tableau_event[$i]['id_client']=$unstmt['id_client'];
             $tableau_event[$i]['id_bien']=$id_bien;
+            $tableau_event[$i]['moderation']=$unstmt['moderation'];
+            if ($unstmt['moderation']=='0')
+            {
+                // le commentaire est conservé
+                $tableau_event[$i]['commentaire']=$unstmt['commentaire'];
+            }
+            else
+            {
+                // le commentaire est modéré
+                $tableau_event[$i]['commentaire']='Ce commentaire a été modéré.';
+            }
+            
             if ($unstmt['id_client']==$id_client)
             {
                 if ($unstmt['start']<$date)
@@ -64,7 +76,7 @@
                     }
                     else
                     {
-                        // les réservations annulées à venir du client ne sont pas modifiables et sont affichées en jaune
+                        // les réservations annulées à venir du client ne sont pas modifiables et sont affichées en orange
                         $tableau_event[$i]['startEditable']=false;
                         $tableau_event[$i]['color']='orange';
                         $tableau_event[$i]['title']=$unstmt['title']." (annulé)";

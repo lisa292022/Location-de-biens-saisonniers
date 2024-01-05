@@ -62,11 +62,23 @@ if (isset($_POST['action'])) {
         header('Location: affichage_test.php');
         exit;
     } elseif ($_POST['action'] == "annule") {
-        // Supprime une réservation
+        // Annule une réservation
         $id_reservation = $_POST['id'];
         $oReservation->annulerReservation($id_reservation);
         header('Location: affichage_test.php');
-        exit;  
+        exit; 
+    } elseif ($_POST['action'] == "modere") {
+        // Modère une réservation
+        $id_reservation = $_POST['id'];
+        $oReservation->modererReservation($id_reservation);
+        header('Location: affichage_test.php');
+        exit; 
+    } elseif ($_POST['action'] == "commentaire") {
+        // commente une réservation
+        $id_reservation = $_POST['id'];
+        $oReservation->commenterReservation($id_reservation,$_POST['commentaire']);
+        header('Location: affichage_test.php');
+        exit;
     } elseif ($_POST['action'] == "delete") {
         // Supprime une réservation
         $id_reservation = $_POST['id'];

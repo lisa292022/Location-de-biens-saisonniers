@@ -53,6 +53,8 @@ $(document).ready(function(id_bien){
                 $('#starttime').val(event.start);
                 $('#modalid_client').text(event.id_client);
                 $('#modalid_bien').text(event.id_bien);
+                $('#modalcommentaire').html(event.commentaire);
+                $('#modalcommentaire2').val(event.commentaire);
                 $('#calendarModal').modal();
             },
             
@@ -63,6 +65,7 @@ $(document).ready(function(id_bien){
                 var mywhen = starttime + ' - ' + endtime;
                 start = moment(start).format();
                 end = moment(end).format();
+                commentaire = "";
                 $('#createEventModal #startTime').val(start);
                 $('#createEventModal #endTime').val(end);
                 $('#createEventModal #when').text(mywhen);
@@ -73,6 +76,7 @@ $(document).ready(function(id_bien){
                 //id_bien = 2;
                 $('#createEventModal #id_client').text(id_client);
                 $('#createEventModal #id_bien').text(id_bien);
+                $('#createEventModal #commentaire').text(commentaire);
                 $('#createEventModal').modal('toggle');
            },
            eventDrop: function(event, delta){
@@ -113,6 +117,18 @@ $(document).ready(function(id_bien){
            // We don't want this to act as a link so cancel the link action
            e.preventDefault();
            doAnnuler();
+       });
+       
+       $('#modereButton').on('click', function(e){
+           // We don't want this to act as a link so cancel the link action
+           e.preventDefault();
+           doModerer();
+       });
+       
+       $('#commentaireButton').on('click', function(e){
+           // We don't want this to act as a link so cancel the link action
+           e.preventDefault();
+           doCommenter();
        });
        
        // appelé par le bouton Delete
@@ -176,6 +192,57 @@ $(document).ready(function(id_bien){
            });
        }
        
+       // appelé par le bouton Moderer
+       // Modère un event
+       // Modère une reservation en base
+       // fonction à garder
+       function doModerer(){
+           $("#calendarModal").modal('hide');
+           var eventID = $('#eventID').val();
+           /*$.ajax({
+               url: 'affichage_test.php',
+               data: 'action=modere&id='+eventID,
+               type: "POST",
+               success: function(json) {
+                   if(json == 1)
+                        $("#calendar").fullCalendar('removeEvents',eventID);
+                   
+                    
+                   
+               }
+           });*/
+           
+           $.ajax({
+               url: 'traitement_test.php',
+               data: 'action=modere&id='+eventID,
+               type: "POST",
+               success: function(json) {
+                   alert(json);
+                   }
+           });
+       }
+       
+       // appelé par le bouton Commenter
+       // commente un event
+       // commente une reservation en base
+       // fonction à garder
+       function doCommenter(){
+           $("#calendarModal").modal('hide');
+           var eventID = $('#eventID').val();
+           var commentaire = $('#modalcommentaire2').val();
+           //var commentaire = 'TEST';
+           
+           $.ajax({
+               url: 'traitement_test.php',
+               data: 'action=commentaire&id='+eventID+'&commentaire='+commentaire,
+               type: "POST",
+               success: function(json) {
+                   alert(json);
+                   }
+           });
+       }
+       
+       
        // appelé par le Save
        // ajoute un event
        // ajoute une reservation en base
@@ -189,6 +256,7 @@ $(document).ready(function(id_bien){
            //var id_client = "1"; //$('#id_client').val();
            var id_bien = $('#id_bien').val();
            var id_client = $('#id_client').val();
+           var commentaire = $('#commentaire').val();
            
            /*$.ajax({
                url: 'affichage_test.php',
@@ -209,7 +277,7 @@ $(document).ready(function(id_bien){
            
            $.ajax({
                url: 'traitement_test.php',
-               data: 'action=add&title='+title+'&start='+startTime+'&end='+endTime+'&id_bien='+id_bien+'&id_client='+id_client,
+               data: 'action=add&title='+title+'&start='+startTime+'&end='+endTime+'&id_bien='+id_bien+'&id_client='+id_client+'&commentaire='+commentaire,
                type: "POST",
                success: function(json) {
                    $("#calendar").fullCalendar('renderEvent',
@@ -220,6 +288,7 @@ $(document).ready(function(id_bien){
                        end: endTime,
                        id_bien: id_bien,
                        id_client: id_client,
+                       commentaire: commentaire,
                    },
                    true);
                    alert(json);

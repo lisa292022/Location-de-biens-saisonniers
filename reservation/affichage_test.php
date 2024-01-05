@@ -203,6 +203,12 @@
         <h4 id="modalid_client" class="modal-title"></h4>
         <label class="control-label" for="inputPatient">id_bien:</label>
         <h4 id="modalid_bien" class="modal-title"></h4>
+        <label class="control-label" for="inputPatient">commentaire:</label>
+        <h4 id="modalcommentaire" class="modal-title"></h4>
+            <div class="field desc">
+                    <input class="form-control" id="modalcommentaire2" name="modalcommentaire2" placeholder="Saisir un commentaire" type="text">
+                    
+            </div>
         </div>
         <input type="hidden" id="eventID" name="eventID"/>
              <button class="btn" data-dismiss="modal" aria-hidden="true">Retour</button>
@@ -211,17 +217,21 @@
             // **** TODO ****
             $couleur = "green";
             if ($couleur == "green") { ?>
-                <button type="submit" class="btn btn-danger" id="annuleButton">Annulation</button>
+                <button type="submit" class="btn btn-primary" id="annuleButton">Annulation</button>
             <?php } ?>
+            
             
             
             <?php 
             // seulement l'admin peut supprimer les réservations
             if (isset($_SESSION['admin'])) {
                 if ($_SESSION['admin'] == "oui") { ?>
+                <button type="submit" class="btn btn-danger" id="modereButton">Modérer</button>
                 <button type="submit" class="btn btn-danger" id="deleteButton">Supprimer</button>
+                <!--button type="submit" class="btn btn-primary" id="commentaireButton">Commenter</button-->
+            <?php } else { ?>
+                <button type="submit" class="btn btn-primary" id="commentaireButton">Commenter</button>
             <?php } } ?>
-            
         </div>
     </div>
 </div>
@@ -253,7 +263,7 @@
     ?>
     
     
-    </form-->
+    </form>
     <a href="../front/acceuil.php"><img src="../photo/home.jfif" title="Page d'accueil"></a>
 </body>
 </html>
