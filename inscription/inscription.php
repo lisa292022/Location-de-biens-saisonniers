@@ -44,11 +44,11 @@
                 </div>
                 <div class="form-group">
                     <label for="mdp_client">Créer votre mot de passe :</label>
-                    <input type="password" name="mdp_client" id="mdp_client" required>
+                    <input type="password" name="mdp_client" id="mdp_client" minlength=12 maxlength=49 autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="mdp_client2">Confirmer votre mot de passe :</label>
-                    <input type="password" name="mdp_client2" id="mdp_client2" required>
+                    <input type="password" name="mdp_client2" id="mdp_client2" minlength=12 maxlength=49 autocomplete="off" required">
                 </div>
 
                 <button type="submit" class="btn">S'inscrire</button>
