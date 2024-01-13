@@ -14,11 +14,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //$mdp_client2 = $_POST['mdp_client2'];
         $oClient= new Client(1);
     $oClient->setcode($code);
-    $ocommune = new Commune(1);
-    $ocommune->setcode($code);
-    $idcom = $ocommune->getidcomCouple($_POST['cop_vil_bien']);
-    $oClient->insertClientSansId($_POST['nom_client'],$_POST['prenom_client'],$_POST['rue_client'],$idcom,$_POST['mail_client'],$_POST['mdp_client'],0,0);
-            header('Location: inscription.php');  
+    // teste si les 2 mots de passe sont identiques
+    if ($_POST["mdp_client"]!=$_POST["mdp_client2"]) {
+        ?>
+        <script language='Javascript'>
+            alert("Les mots de passe saisis ne sont pas identiques." );
+            location.href = "inscription.php";
+        </script>
+        <?php
+    }
+    else {
+        // teste si le client existe dejà (même mail)
+        $Existe=$oClient->ExisteClient($_POST["mail_client"]);
+        if($Existe->rowCount() != 0) {
+           ?>
+            <script language='Javascript'>
+                alert("Le mail saisi est déjà utilisé par un autre client." );
+                location.href = "inscription.php";
+            </script>
+            <?php
+        }
+        else {
+        $ocommune = new Commune(1);
+        $ocommune->setcode($code);
+        $idcom = $ocommune->getidcomCouple($_POST['cop_vil_bien']);
+        $oClient->insertClientSansId($_POST['nom_client'],$_POST['prenom_client'],$_POST['rue_client'],$idcom,$_POST['mail_client'],$_POST['mdp_client'],0,0);
+                header('Location: inscription.php');  
+        }
+    }
 }
 }
 ?>

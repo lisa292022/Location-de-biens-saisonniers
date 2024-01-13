@@ -122,6 +122,13 @@
             $stmt=$code->Query($SQL);
             return $stmt;
         }
+        
+        public function ExisteClient($mail_client){
+            $SQL="SELECT * FROM clients WHERE mail_client='".$mail_client."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
     }
 
 
