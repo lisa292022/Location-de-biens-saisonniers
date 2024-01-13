@@ -143,7 +143,24 @@
                 </h1>
                         </tr>
                     <?php endwhile;?> 
+                
+                    <tr>
+                        <th> Commentaires </th>
                         
+                    </tr>
+                    <?php
+                    $commentaires = $o_Biens->getCommentairesBien($id_bien);
+                    if($commentaires->rowCount() != 0) {
+                    while($row = $commentaires->fetch(PDO::FETCH_ASSOC)):?>
+                    <tr>
+                        <td WIDTH="100%"> <?php echo $row['commentaire']?> </td>
+                    </tr>
+                    <?php endwhile;
+                    } else { ?>
+                    <tr>
+                        <td WIDTH="100%"> Pas de commentaire </td>
+                    </tr>
+                    <?php } ?> 
                 </tbody>
                 
         </table>
