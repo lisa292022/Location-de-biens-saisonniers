@@ -152,6 +152,7 @@
         </div>
     </div>
     
+    <?php if ($id_client!=0) { ?>
     <!-- Modal -->
 <div id="createEventModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -261,7 +262,7 @@
 </div>
 </div>
 <!--Modal-->
-
+    <?php } ?>
 
 <div style='margin-left: auto;margin-right: auto;text-align: center;'>
 </div>

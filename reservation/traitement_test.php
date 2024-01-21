@@ -44,14 +44,14 @@ if (isset($_POST['action'])) {
             $events[] = array('id' => $id, 'start' => $start, 'end' => $end, 'title' => $title);
         }*/
     if ($_POST['action'] == "add") {
+        if ($_POST['id_client']!='0') {
         // Ajoute une réservation
         echo "<script>alert('Etes-vous certain de vouloir ajouter ???');</script>;";
         $oReservation->insertReservation($_POST['start'],$_POST['end'],intval($_POST['id_client']),intval($_POST['id_bien']),$_POST['title']);
         //header('Location: affichage_test.php');
         header('Refresh: 1;URL=affichage_test.php');
         
-        //header('Content-Type: application/json');
-        //echo '{"id":"' . $code . '"}';
+        }
         exit;
     } elseif ($_POST['action'] == "update") {
         $oReservation->updateReservation($_POST['id'],$_POST['date_resa'],$_POST['start'],$_POST['end'],$_POST['commentaire'],$_POST['moderation'],$_POST['annulation_resa'],$id_client,$id_bien);
