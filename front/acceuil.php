@@ -35,6 +35,8 @@
                         //echo "Connecté le " ,date('Y m d H:i:s', $_SESSION['time']);
                         // récupère l'id du client pour la réservation
                         $id_client_connecte=$_SESSION['client'];
+                        // pas de bien sélectionné sur la page principale
+                        $id_bien = 0;
                         // menu différent suivant le client ou l'admin
                         if ($_SESSION['admin'] == "oui") {
                         ?>

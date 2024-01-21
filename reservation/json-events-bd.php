@@ -28,16 +28,44 @@
         if ($_SESSION['connecter'] == "oui") {
             // récupère l'id du client pour la réservation
             $id_client=$_SESSION['client'];
-            // récupère l'id du bien pour la réservation
-            $id_bien=$_SESSION['bien'];
+            if (isset($_SESSION['bien'])) {
+                if ($_SESSION['bien'] != 0) {
+                // la page précédante est consuter/voir les disponibilités
+                // récupère l'id du bien pour la réservation
+                $id_bien=$_SESSION['bien'];
+                $stmt = $oreservation->getAllReservationBien($id_bien);
+                }
+                else
+                {
+                    // la page précédante est Réservation
+                    $stmt = $oreservation->getAllReservationClient($id_client);
+                }
+            }
+            else
+            {
+                // la page précédante est Réservation
+                $stmt = $oreservation->getAllReservationClient($id_client);
+            }
         }
+        else {
+            // pas de réservation possible sans connection
+            $id_client=0;
+            $id_bien=$_SESSION['bien'];
+            $stmt = $oreservation->getAllReservationBien($id_bien);
+        }
+    }
+    else {
+        // pas de réservation possible sans connection
+        $id_client=0;
+        $id_bien=$_SESSION['bien'];
+        $stmt = $oreservation->getAllReservationBien($id_bien);
     }
     // date du jour au format AAAA-MM-DD hh-mm-ss
     $date = date('Y-m-d h:i:s');
     
         $tableau_event=[];
         $i=0;
-        $stmt = $oreservation->getAllReservationBien($id_bien);
+        //$stmt = $oreservation->getAllReservationBien($id_bien);
         foreach ($stmt as $unstmt ) {
             
             $tableau_event[$i]['id']=$unstmt['id'];
@@ -45,7 +73,8 @@
             $tableau_event[$i]['start']=$unstmt['start'];
             $tableau_event[$i]['end']=$unstmt['end'];
             $tableau_event[$i]['id_client']=$unstmt['id_client'];
-            $tableau_event[$i]['id_bien']=$id_bien;
+            //$tableau_event[$i]['id_bien']=$id_bien;
+            $tableau_event[$i]['id_bien']=$unstmt['id_bien'];
             $tableau_event[$i]['moderation']=$unstmt['moderation'];
             if ($unstmt['moderation']=='0')
             {

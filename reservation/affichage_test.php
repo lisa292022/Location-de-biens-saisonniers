@@ -48,8 +48,10 @@
                 if ($_SESSION['connecter'] == "oui") {
                     // mémorise l'id du bien pour la réservation
                     $_SESSION['bien']=$id_bien;
-        }
-    }
+                }
+            }
+            // mémorise l'id du bien pour la réservation
+           $_SESSION['bien']=$id_bien;
             
             
         }
@@ -66,6 +68,28 @@
             echo "client:",$id_client;
         }
             
+    }
+    else
+    {
+        // on vient de acceuil.php
+        // pas de bien sélectionné
+        $id_bien=0;
+        session_start();
+        $_SESSION['bien']=0;
+        echo "bien:",$id_bien;
+        if (isset($_POST['id_client_connecte']))
+        {
+            // le client est connu car il est connecté
+            //$id_client=$_POST['id_client_connecte'];
+            $id_client=$_SESSION['client'];
+            echo "client:",$id_client;
+        }
+        else
+        {
+            // le client est inconnu
+            $id_client=0;
+            echo "client:",$id_client;
+        }
     }
     
     /*if (isset($_GET['view'])) {
