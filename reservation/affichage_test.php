@@ -211,7 +211,7 @@
 
   </div>
 </div>
-
+<?php } ?>
 
 <div id="calendarModal" class="modal fade">
 <div class="modal-dialog">
@@ -242,16 +242,16 @@
             // **** TODO ****
             $couleur = "green";
             if ($couleur == "green") { ?>
-                <button type="submit" class="btn btn-primary" id="annuleButton">Annulation</button>
-            <?php } ?>
-            
-            
+                <button type="submit" class="btn btn-primary" id="annuleButton" >Annulation</button>
+            <?php } else { ?>
+                <button type="submit" class="btn btn-primary" id="annuleButton" disabled="true">Annulation</button>
+             <?php } ?>
             
             <?php 
             // seulement l'admin peut supprimer les réservations
             if (isset($_SESSION['admin'])) {
                 if ($_SESSION['admin'] == "oui") { ?>
-                <button type="submit" class="btn btn-danger" id="modereButton">Modérer</button>
+                <button type="submit" class="btn btn-warning" id="modereButton">Modérer</button>
                 <button type="submit" class="btn btn-danger" id="deleteButton">Supprimer</button>
                 <!--button type="submit" class="btn btn-primary" id="commentaireButton">Commenter</button-->
             <?php } else { ?>
@@ -262,7 +262,7 @@
 </div>
 </div>
 <!--Modal-->
-    <?php } ?>
+    
 
 <div style='margin-left: auto;margin-right: auto;text-align: center;'>
 </div>
