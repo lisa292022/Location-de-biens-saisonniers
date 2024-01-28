@@ -18,6 +18,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Connexion réussie, l'utilisateur existe dans la base de données
             // Vous pouvez enregistrer des informations de session ou rediriger vers une page protégée
             
+            $client = $requete->fetch();
+            // si l'utilisateur a un statut qui a été modéré à cause de ces commentaires alors pas de connexion
+            // si l'utilisateur n'est plus valide alors pas de connexion
+            $statut_client = $client['statut_client'];
+            if ($statut_client == 0) {
+                echo "Votre identifiant n'est plus valide du fait de vos commentaires.";
+                //sleep(3);
+                //header("Location:../front/acceuil.php");
+                exit();
+            }
+            
+            // si l'utilisateur n'est plus valide alors pas de connexion
+            $valid_client = $client['valid_client'];
+            if ($valid_client == 0) {
+                echo "Votre identifiant n'est plus valide.";
+                //sleep(3);
+                //header("Location:../front/acceuil.php");
+                exit();
+            }
+            
+            // recherche si l'utilisateur est un administrateur
             $UserConnected="oui";
             session_start();
             $_SESSION['connecter'] = "oui";
@@ -26,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo date('Y m d H:i:s', $_SESSION['time']);
             
             // recherche si l'utilisateur est un administrateur
-            $client = $requete->fetch();
+            //$client = $requete->fetch();
             $id_client = $client['id_client'];
             $_SESSION['client'] = $id_client;
             echo $id_client;
