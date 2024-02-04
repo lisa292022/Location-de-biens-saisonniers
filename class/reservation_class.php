@@ -168,6 +168,16 @@
             return $stmt;
         }
         
+        public function dejaReservation($start,$end,$id_bien){
+             //Paramètres pour l'exécution de la requête
+            //$SQL="select count(*) FROM reservation WHERE id_bien='".$id_bien."' AND ( '".$start."' > date_deb_resa AND '".$start."' < date_fin_resa ) OR ( '".$end."' > date_deb_resa AND '".$end."' < date_fin_resa )";
+            $SQL="select count(*) FROM reservation WHERE id_bien='".$id_bien."' AND annulation_resa='0' AND(( date_fin_resa >= '".$start."' AND date_fin_resa <= '".$end."' ) OR ( date_deb_resa >= '".$start."' AND date_deb_resa <= '".$end."' ))";
+    
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
+        
     }
 
 

@@ -45,12 +45,19 @@ if (isset($_POST['action'])) {
         }*/
     if ($_POST['action'] == "add") {
         if ($_POST['id_client']!='0') {
-        // Ajoute une réservation
-        echo "<script>alert('Etes-vous certain de vouloir ajouter ???');</script>;";
-        $oReservation->insertReservation($_POST['start'],$_POST['end'],intval($_POST['id_client']),intval($_POST['id_bien']),$_POST['title']);
-        //header('Location: affichage_test.php');
-        header('Refresh: 1;URL=affichage_test.php');
-        
+        // teste si le bien n'est pas deja réservé
+        $dejaReserve=$oReservation->dejaReservation($_POST['start'],$_POST['end'],$_POST['id_bien']);
+        $nb = $dejaReserve->fetchColumn();
+        if ($nb != 0) {
+            echo "<script>alert('Bien déjà réservé');</script>;";
+        }
+        else {
+            // Ajoute une réservation
+            echo "<script>alert('Etes-vous certain de vouloir ajouter ???');</script>;";
+            $oReservation->insertReservation($_POST['start'],$_POST['end'],intval($_POST['id_client']),intval($_POST['id_bien']),$_POST['title']);
+            //header('Location: affichage_test.php');
+            header('Refresh: 1;URL=affichage_test.php');
+        }
         }
         exit;
     } elseif ($_POST['action'] == "update") {
