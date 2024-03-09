@@ -88,6 +88,12 @@
         }
         
         public function getAllBiens() {
+        $sql = "SELECT * FROM biens";
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        return $stmt;
+        }
+        public function getAllBiensValide() {
         $sql = "SELECT * FROM biens WHERE statut_bien='1'";
         $code = $this->code;
         $stmt=$code->Query($sql);

@@ -162,12 +162,12 @@
                             } 
                         if ($_POST['cop_vil_bien']=="" and $_POST['nb_personne']=="") 
                             {
-                                $appel = $o_Biens->getAllBiens();
+                                $appel = $o_Biens->getAllBiensValide();
                             }
                     }
                     else
                     {
-                        $appel = $o_Biens->getAllBiens();
+                        $appel = $o_Biens->getAllBiensvalide();
                     }    
                     //$appel = $o_Biens->getAllBiens();
                     while($row = $appel->fetch(PDO::FETCH_ASSOC)):?>
