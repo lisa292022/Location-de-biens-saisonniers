@@ -135,6 +135,12 @@
         $stmt=$code->Query($sql);
         return $stmt;
         }
+        public function getOneBienByReference($ref_bien) {
+        $sql = "SELECT * FROM biens WHERE ref_bien='".$ref_bien."'";
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        return $stmt;
+        }
         public function insertBien($nom_bien, $rue_bien, $idcom, $superficie_bien, $nb_couchage, $nb_piece, $nb_chambre, $descriptif, $ref_bien, $statut_bien , $id_type_bien) {
         $sql = "INSERT INTO biens (nom_bien, rue_bien, idcom, superficie_bien, nb_couchage, nb_piece, nb_chambre, descriptif, ref_bien, statut_bien, id_type_bien) VALUES ('". $nom_bien."','".$rue_bien."','".$idcom."','".$superficie_bien."','".$nb_couchage."','".$nb_piece."','".$nb_chambre."','".$descriptif."','".$ref_bien."','".$statut_bien."','".$id_type_bien."')";
         $code = $this->code;

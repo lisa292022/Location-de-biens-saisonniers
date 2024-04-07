@@ -114,6 +114,7 @@
                 <br/><label for="fin">Date de fin :</label>
                 <input type="date" id="date_debut" name="date_fin">
                 
+                <hr width="550px" size="1px"
                 <br/><label for="vide"> </label>       
                 <br/><label for="couchage">Nombre de personnes :</label>
                 <input type="number" id="nb_personne" name="nb_personne" placeholder="Entrez un nombre"> 
@@ -126,6 +127,9 @@
                         </div>
                 </td>
                 
+                <hr width="550px" size="1px"
+                <br/><label for="Référence">Référence :</label>
+                <input type="text" id="ref_bien" name="ref_bien">
 
                 <td><button id='rechercher' name='rechercher' type="submit" class="btn btn-primary" value="<?php echo $cop_vil_bien;?>">Rechercher</button></td>
                 
@@ -145,24 +149,32 @@
                     
                     if (isset($_POST['rechercher']))
                     {
-                        if ($_POST['cop_vil_bien']!="" and $_POST['nb_personne']!="") 
-                        {
-                            $idcom = $ocommune->getidcomCouple($_POST['cop_vil_bien']);
-                            $appel = $o_Biens->getAllBiensCommuneNbcouchage($idcom,$_POST['nb_personne']);
-                            //$appel = $o_Biens->getAllBiensCommune($idcom);
-                        }
-                        if ($_POST['cop_vil_bien']!="" and $_POST['nb_personne']=="")
+                        if ($_POST['ref_bien']!="") 
+                            {
+                                $ref = $_POST['ref_bien'];
+                                $appel = $o_Biens->getOneBienByReference($ref);
+                            }
+                        else
+                            {
+                            if ($_POST['cop_vil_bien']!="" and $_POST['nb_personne']!="") 
                             {
                                 $idcom = $ocommune->getidcomCouple($_POST['cop_vil_bien']);
-                                $appel = $o_Biens->getAllBiensCommune($idcom);
+                                $appel = $o_Biens->getAllBiensCommuneNbcouchage($idcom,$_POST['nb_personne']);
+                                //$appel = $o_Biens->getAllBiensCommune($idcom);
                             }
-                        if ($_POST['cop_vil_bien']=="" and $_POST['nb_personne']!="") 
-                            {
-                               $appel = $o_Biens->getAllBiensNbcouchage($_POST['nb_personne']);
-                            } 
-                        if ($_POST['cop_vil_bien']=="" and $_POST['nb_personne']=="") 
-                            {
-                                $appel = $o_Biens->getAllBiensValide();
+                            if ($_POST['cop_vil_bien']!="" and $_POST['nb_personne']=="")
+                                {
+                                    $idcom = $ocommune->getidcomCouple($_POST['cop_vil_bien']);
+                                    $appel = $o_Biens->getAllBiensCommune($idcom);
+                                }
+                            if ($_POST['cop_vil_bien']=="" and $_POST['nb_personne']!="") 
+                                {
+                                   $appel = $o_Biens->getAllBiensNbcouchage($_POST['nb_personne']);
+                                } 
+                            if ($_POST['cop_vil_bien']=="" and $_POST['nb_personne']=="") 
+                                {
+                                    $appel = $o_Biens->getAllBiensValide();
+                                }
                             }
                     }
                     else
