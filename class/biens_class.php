@@ -145,10 +145,13 @@
         $sql = "INSERT INTO biens (nom_bien, rue_bien, idcom, superficie_bien, nb_couchage, nb_piece, nb_chambre, descriptif, ref_bien, statut_bien, id_type_bien) VALUES ('". $nom_bien."','".$rue_bien."','".$idcom."','".$superficie_bien."','".$nb_couchage."','".$nb_piece."','".$nb_chambre."','".$descriptif."','".$ref_bien."','".$statut_bien."','".$id_type_bien."')";
         $code = $this->code;
         $stmt=$code->Query($sql);
-        // Ajout du tarif au bien
+        // Ajout du tarif du bien en basse saison
         $id_bien=$code->lastInsertId();
-        $sql = "INSERT INTO tarif (date_deb_tarif,date_fin_tarif,prix_loc,id_bien) VALUES ('2023-01-01','2024-12-31',100,".$id_bien.")";
+        $sql = "INSERT INTO tarif (date_deb_tarif,date_fin_tarif,prix_loc,id_bien) VALUES ('2024-01-01','2024-06-30',100,".$id_bien.")";
         $stmt2=$code->Query($sql);
+        // Ajout du tarif du bien en haute saison
+        $sql = "INSERT INTO tarif (date_deb_tarif,date_fin_tarif,prix_loc,id_bien) VALUES ('2024-07-01','2024-12-31',200,".$id_bien.")";
+        $stmt3=$code->Query($sql);
         return $stmt;
         }
 
