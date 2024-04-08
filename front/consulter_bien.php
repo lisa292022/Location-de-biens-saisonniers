@@ -6,9 +6,13 @@
         <?php
         include('../include/connexion.inc.include');
         include('../class/biens_class.php');
+        include('../class/photo_class.php');
         $o_Biens=new Biens(2);
         $o_Biens->setCode($code);
         $o_Biens->getOneBien(2);
+        $oPhoto= new Photo(1);
+        $oPhoto->setcode($code);
+        $lesphotos=$oPhoto->getAllPhotosBien($_POST['consulter']); 
         ?>
         <style>
         body {
@@ -96,6 +100,8 @@
             <table>
             <caption>CE LOGEMENT</caption>
             <thead>
+                
+                
                     <tr>
                         <th> Id </th> 
                         <th> Nom </th> 
@@ -148,9 +154,19 @@
                 <!--IMG src="../photo/bien_photo_1.jfif" style="width:200px;height:150px;"-->
                 <h1 align = center>
                     <IMG src="../photo/bien_photo_1.jfif" style="width:200px;height:150px;">
-                    <!--img src="../photo/bien_photo_1.png"> 
-                    <font size ="100pt" face = "verdana"> </font-->
                 </h1>
+                
+                <tr>
+                    <th> Photos </th>
+                </tr>
+                <?php while($row = $lesphotos->fetch(PDO::FETCH_ASSOC)):?>
+                    <?php $lien_photo = $row['lien_photo'];?>
+                        <tr>
+                        <td><?php echo "<input type='image' src='../photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['lien_photo']."' name='lien_photo".$row['lien_photo']."'";?></td>                         
+                        </tr>
+                <?php endwhile;?>
+ 
+                
                         </tr>
                     <?php endwhile;?> 
                 

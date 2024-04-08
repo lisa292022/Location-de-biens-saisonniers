@@ -45,6 +45,13 @@
         $stmt = $code->Query($sql);
         return $stmt;
         }
+        
+        public function getAllPhotosBien($id_bien) {
+        $sql = "SELECT * FROM photos WHERE id_bien=".$id_bien;
+        $code = $this->code;
+        $stmt = $code->Query($sql);
+        return $stmt;
+        }
        
         public function getOnePhoto($id_photo) {
         $sql = "SELECT * FROM photos WHERE id_photo =" .$id_photo;
