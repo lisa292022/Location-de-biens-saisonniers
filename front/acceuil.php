@@ -139,6 +139,7 @@
                 <caption>Résultat de votre recherche</caption>
                     <tr>
                       <th>Nom du bien</th>
+                      <th>Référence</th>
                       <th>Destination</th>
                       <th>Nombre de couchages</th>
                       <th>Prix</th>
@@ -187,6 +188,8 @@
                         <?php echo "<input type='text' class='form-control' id='id_client' name='id_client' style='visibility: hidden' value='".$id_client_connecte."'"; ?>
                         <tr>
                         <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."'"."disabled='disabled'"; ?></td>
+                        
+                        <td><?php echo "<input type='text' class='form-control' id='ref_bien".$row['id_bien']."' name='ref_bien".$row['id_bien']."' value='".$row['ref_bien']."'"."disabled='disabled'"; ?></td>
                         
                         <?php $MonBien = $ocommune->getnom_commune_postal_code_postal($row['Idcom']); $row2=$MonBien->fetch(PDO::FETCH_ASSOC); $MonBienTexte = $row2['nom_commune_postal']." ".$row2['code_postal']; ?>
                         <td><?php echo "<input type='text' class='form-control' id='communes' name='communes' value='".$MonBienTexte."'"."disabled='disabled'"; ?></td>

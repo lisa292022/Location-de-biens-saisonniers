@@ -99,6 +99,7 @@
                     <tr>
                         <th> Id </th> 
                         <th> Nom </th> 
+                        <th> Référence </th> 
                         <th> Superficie </th> 
                         <th> Nombre de personnes </th>
                         <th> Nombre de pièces </th>
@@ -121,6 +122,7 @@
                         <tr>
                             <td><?php echo "<input type='text' class='form-control' id='id_bien' name='id_bien' value='".$row['id_bien']."'"; ?></td>
                             <td><?php echo $row['nom_bien']?> </td>
+                            <td><?php echo $row['ref_bien']?> </td>
                             <td><?php echo $row['superficie_bien']?> </td>
                             <td><?php echo $row['nb_couchage']?> </td>
                             <td> <?php echo $row['nb_piece']?> </td>
