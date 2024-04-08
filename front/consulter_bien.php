@@ -150,31 +150,25 @@
                             <!--a href="..\reservation\affichage_test.php?client=autre">Réserver</a-->
                         </td>
                     </form>  
-                <!--th><img src="../photo/bien_photo_1.PNG"></th-->
-                <!--IMG src="../photo/bien_photo_1.jfif" style="width:200px;height:150px;"-->
-                <h1 align = center>
+                <!--h1 align = center>
                     <IMG src="../photo/bien_photo_1.jfif" style="width:200px;height:150px;">
-                </h1>
+                </h1-->
                 
-                <tr>
-                    <th> Photos </th>
                 </tr>
-                <?php while($row = $lesphotos->fetch(PDO::FETCH_ASSOC)):?>
-                    <?php $lien_photo = $row['lien_photo'];?>
-                        <tr>
-                        <td><?php echo "<input type='image' src='../photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['lien_photo']."' name='lien_photo".$row['lien_photo']."'";?></td>                         
-                        </tr>
-                <?php endwhile;?>
- 
+                <?php endwhile;?> 
+                </tbody>
                 
-                        </tr>
-                    <?php endwhile;?> 
-                
-                    <tr>
-                        <th> Commentaires </th>
-                        
-                    </tr>
-                    <?php
+        </table>
+        </table>
+        
+        
+        <table>
+            <thead>
+                <tr>
+                    <th> Commentaires </th> 
+                </tr>
+            </thead>
+            <?php
                     $commentaires = $o_Biens->getCommentairesBien($id_bien);
                     if($commentaires->rowCount() != 0) {
                     while($row = $commentaires->fetch(PDO::FETCH_ASSOC)):?>
@@ -186,11 +180,26 @@
                     <tr>
                         <td WIDTH="100%"> Pas de commentaire </td>
                     </tr>
-                    <?php } ?> 
-                </tbody>
-                
+                    <?php } ?>
         </table>
+        
+        
+        
+        <table>
+            <thead>
+                <tr>
+                    <th> Photos </th> 
+                </tr>
+            </thead>
+            <?php $lesphotos=$oPhoto->getAllPhotosBien($_POST['consulter']);?>
+            <?php while($row = $lesphotos->fetch(PDO::FETCH_ASSOC)):?>
+            <?php $lien_photo = $row['lien_photo'];?>
+            <tr>
+                <td><?php echo "<input type='image' src='../photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['lien_photo']."' name='lien_photo".$row['lien_photo']."'";?></td>                         
+            </tr>
+            <?php endwhile;?>
         </table>
+        
          <a href="../front/acceuil.php"><img src="../photo/home.jfif" title="Page d'accueil"></a>
     </body>
 </html>
