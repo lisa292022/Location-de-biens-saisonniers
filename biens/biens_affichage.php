@@ -74,7 +74,28 @@
                         <td><?php echo "<input type='text' class='form-control petit' id='statut_bien".$row['id_bien']."' name='statut_bien".$row['id_bien']."' value='".$row['statut_bien']."'"; ?></td>  
                                
                         <?php $MonTypeBienTexte = $oTypebien->getLibTypeBien($row['id_type_bien']); ?>
-                        <td><?php echo "<input type='text' class='form-control petit' id='lib_type_bien".$row['id_bien']."' name='lib_type_bien".$row['id_bien']."' value='".$MonTypeBienTexte."'"; ?></td>                            
+                        <!--td><?php echo "<input type='text' class='form-control petit' id='lib_type_bien".$row['id_bien']."' name='lib_type_bien".$row['id_bien']."' value='".$MonTypeBienTexte."'"; ?></td-->                            
+                        
+                        <td><select class="form-control petit" id='lib_type_bien".$row['id_bien']."' name='lib_type_bien".$row['id_bien']."'>
+                                <?php
+                                    $all_type_bien = $oTypebien->getAllTypeBien();
+                                    foreach($all_type_bien as $type_bien) {  
+                                ?>
+                                <?php if ($type_bien['lib_type_bien'] == $MonTypeBienTexte) {?>
+                                <option selected="selected" value="<?php echo $type_bien["id_type_bien"];?>">
+                                    <?php echo $type_bien["lib_type_bien"]?>
+                                </option>
+                                <?php } else { ?>
+                                <option value="<?php echo $type_bien["id_type_bien"];?>">
+                                    <?php echo $type_bien["lib_type_bien"]?>
+                                </option>
+                                <?php }?>
+                               <?php
+                                   //endwhile;
+                               }
+                               ?>
+                            </select>
+                        </td>
                         
                         <td>
                             <button class="btn secondary" name='modifier' value="<?php echo $row['id_bien'];?>" type='submit' class="btn btn-primary">Modifier</button>
