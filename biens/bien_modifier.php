@@ -1,13 +1,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Liste des biens</title>
+<title>Modification d'un bien</title>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/script.js"></script>
 <link href="../style.css" rel="stylesheet" />
 </head>
 
 <body>    
-    <center>Liste des Biens</center>
+    <center>Modification d'un bien</center>
     <!--link rel="stylesheet" href="css/style.css" /-->
     <div class="container">
     <table id="tablebiens">
@@ -39,9 +39,10 @@
         $lesbiens=$oBiens->getAllBiens();
         $ocommune = new Commune(1);
         $ocommune->setcode($code);
-        $lesbiens=$oBiens->getAllBiens();
-        while($row = $lesbiens->fetch(PDO::FETCH_ASSOC)):?>
-                    <form id='modifier' name='modifier' action='bien_modifier.php' method='POST'>           
+        $id_bien = $_POST['modifier'];
+        $lebien=$oBiens->getOneBien($id_bien);
+        while($row = $lebien->fetch(PDO::FETCH_ASSOC)):?>
+                    <form id='modifier' name='modifier' action='biens_traitement.php' method='POST'>           
                         <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."'"; ?></td>
                         <td><?php echo "<input type='text' class='form-control' id='rue_bien".$row['id_bien']."' name='rue_bien".$row['id_bien']."' value='".$row['rue_bien']."'"; ?></td>
                         
@@ -76,7 +77,7 @@
                         <?php $MonTypeBienTexte = $oTypebien->getLibTypeBien($row['id_type_bien']); ?>
                         <!--td><?php echo "<input type='text' class='form-control petit' id='lib_type_bien".$row['id_bien']."' name='lib_type_bien".$row['id_bien']."' value='".$MonTypeBienTexte."'"; ?></td-->                            
                         
-                         <td><select class="form-control petit" id="lib_type_bien<?php echo $row['id_bien']?>" name="lib_type_bien<?php echo $row['id_bien']?>">
+                        <td><select class="form-control petit" id="lib_type_bien<?php echo $row['id_bien']?>" name="lib_type_bien<?php echo $row['id_bien']?>">
                                 <?php
                                     $all_type_bien = $oTypebien->getAllTypeBien();
                                     foreach($all_type_bien as $type_bien) {  

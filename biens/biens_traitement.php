@@ -30,7 +30,8 @@
         echo "<script>alert('Etes-vous certain de vouloir modifier ?');</script>";
         $id_bien = $_POST['modifier'];
         $idcom = $ocommune->getidcomCouple($_POST['cop_vil_bien'.$id_bien]);
-        $MonTypebienId=$oTypebien->getIdTypeBien($_POST['lib_type_bien'.$id_bien]);
+        // AVANT $MonTypebienId=$oTypebien->getIdTypeBien($_POST['lib_type_bien'.$id_bien]);
+        $MonTypebienId=$_POST['lib_type_bien'.$id_bien];
         $oBiens->updateBien($id_bien,$_POST['nom_bien'.$id_bien],$_POST['rue_bien'.$id_bien],$idcom,$_POST['superficie_bien'.$id_bien],$_POST['nb_couchage'.$id_bien],$_POST['nb_piece'.$id_bien],$_POST['nb_chambre'.$id_bien],$_POST['descriptif'.$id_bien],$_POST['ref_bien'.$id_bien],$_POST['statut_bien'.$id_bien], $MonTypebienId);
         header('Location: biens_affichage.php');
     }      
