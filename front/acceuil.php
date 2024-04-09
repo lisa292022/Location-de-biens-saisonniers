@@ -142,7 +142,8 @@
                       <th>Référence</th>
                       <th>Destination</th>
                       <th>Nombre de couchages</th>
-                      <th>Prix</th>
+                      <th>Tarif basse saison</th>
+                      <th>Tarif haute saison</th>
                       <th colspan="1"></th>
                     </tr>
                     <tr>
@@ -196,9 +197,16 @@
                         
                         <td><?php echo "<input type='text' class='form-control' id='nb_personne".$row['id_bien']."' name='nb_personne".$row['id_bien']."' value='".$row['nb_couchage']."'"."disabled='disabled'"; ?></td>
                         
-                        <?php $MonTarif = $o_Biens->getTarifBien($row['id_bien']); $row4=$MonTarif->fetch(PDO::FETCH_ASSOC); $MonTarifTexte = $row4['prix_loc']; ?>
-                        <td><?php echo "<input type='text' class='form-control' id='tarif' name='tarif' value='".$MonTarifTexte."'"."disabled='disabled'"; ?></td>
-                        
+                        <?php $i=0; $MonTarifTexte[0]=0; $MonTarifTexte[1]=0;$MonTarif = $o_Biens->getTarifBien($row['id_bien']);
+                        if($MonTarif->rowCount() != 0) {
+                            while($row4=$MonTarif->fetch(PDO::FETCH_ASSOC)):
+                                $MonTarifTexte[$i] = $row4['prix_loc'];
+                                $i = $i + 1;
+                            endwhile;
+                        }
+                        ?>
+                        <td><?php echo "<input type='text' class='form-control' id='tarif1' name='tarif1' value='".$MonTarifTexte[0]."'"."disabled='disabled'"; ?></td>
+                        <td><?php echo "<input type='text' class='form-control' id='tarif2' name='tarif2' value='".$MonTarifTexte[1]."'"."disabled='disabled'"; ?></td>
                         
                         <td colspan="1"><button id='consulter' name='consulter' value="<?php echo $row['id_bien'];?>" type="file" class="btn btn-primary">Consulter</button></td>
                         <?php if(isset($_POST['consulter'])) { header("Location:./front/consulter_bien.php"); } ?>

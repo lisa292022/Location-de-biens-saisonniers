@@ -110,7 +110,8 @@
                         <th> Nombre de personnes </th>
                         <th> Nombre de pièces </th>
                         <th> Descriptif </th>
-                        <th> Tarif(s) </th>
+                        <th> Tarif basse saison </th>
+                        <th> Tarif haute saison </th>
                         <th colspan="1"></th>
                     </tr>
                 </thead>
@@ -135,11 +136,18 @@
                             <td> <?php echo $row['descriptif']?> </td>
                             
                             
-                            <?php $MonTarif = $o_Biens->getTarifBien($row['id_bien']); $row4=$MonTarif->fetch(PDO::FETCH_ASSOC); $MonTarifTexte = $row4['prix_loc']; ?>
-                            <?php $MonTarif2 = $o_Biens->getTarifBien($row['id_bien']); $row4=$MonTarif2->fetch(PDO::FETCH_ASSOC);$row4=$MonTarif2->fetch(PDO::FETCH_ASSOC); $MonTarifTexte2 = $row4['prix_loc']; ?>
-                            <?php if ($MonTarifTexte2=="") {$MonTarifTexte2=$MonTarifTexte;}?>
-                            <td><?php echo $MonTarifTexte." (basse saison)\n"; echo $MonTarifTexte2." (haute saison)"?></td>
                             
+                            
+                            <?php $i=0; $MonTarifTexte[0]=0; $MonTarifTexte[1]=0;$MonTarif = $o_Biens->getTarifBien($row['id_bien']);
+                            if($MonTarif->rowCount() != 0) {
+                                while($row4=$MonTarif->fetch(PDO::FETCH_ASSOC)):
+                                    $MonTarifTexte[$i] = $row4['prix_loc'];
+                                    $i = $i + 1;
+                                endwhile;
+                            }
+                            ?>
+                            <td><?php echo $MonTarifTexte[0];?></td>
+                            <td><?php echo $MonTarifTexte[1];?></td>
                         <!--
                         <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['nom_bien']."' name='nom_bien".$row['nom_bien']."' value='".$row['nom_bien']."'"; ?></td>
                         <td><?php echo "<input type='text' class='form-control' id='superficie_bien".$row['superficie_bien']."' name='superficie_bien".$row['superficie_bien']."' value='".$row['superficie_bien']."'"; ?></td>
