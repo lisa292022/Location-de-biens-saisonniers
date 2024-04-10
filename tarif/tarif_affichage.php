@@ -31,7 +31,7 @@
             echo "<script>alert('Etes-vous certain de vouloir modifier ?');</script>";
             $id_tarif = $_POST['modifier'];
             // récupère id du bien
-            $MonBienId=$oBiens->getId($_POST['nom_bien']);
+            $MonBienId=$oBiens->getId_bien($_POST['nom_bien']);
             $row2=$MonBienId->fetch(PDO::FETCH_ASSOC); $id_bien = $row2['id_bien'];
             $oTarif->update($_POST['id_tarif'],$_POST['date_deb_tarif'],$_POST['date_fin_tarif'],$_POST['prix_loc'],$id_bien);
             header('locations_biens_saisonniers: tarif_affichage.php');

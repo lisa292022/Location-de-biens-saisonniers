@@ -25,6 +25,8 @@
                       <th>Référence</th>
                       <th>Statut</th>
                       <th>Type</th>
+                      <th>Tarif basse saison</th>
+                      <th>Tarif haute saison</th>
                       <th colspan="1"><th>
     </tr>
     <?php 
@@ -97,6 +99,28 @@
                                ?>
                             </select>
                         </td>
+                        
+                        <?php $i=0; $MonTarifTexte[0]=0; $MonTarifTexte[1]=0;$MonTarif = $oBiens->getTarifInfoBien($row['id_bien']);
+                        if($MonTarif->rowCount() != 0) {
+                            while($row4=$MonTarif->fetch(PDO::FETCH_ASSOC)):
+                                $MonTarifTexte[$i] = $row4['prix_loc'];
+                                $MonTarifId[$i] = $row4['id_tarif'];
+                                $MonTarifDateDebut[$i] = $row4['date_deb_tarif'];
+                                $MonTarifDateFin[$i] = $row4['date_fin_tarif'];
+                                $i = $i + 1;
+                            endwhile;
+                        }
+                        ?>
+                        <td><?php echo "<input type='text' class='form-control' id='tarif1' name='tarif1' value='".$MonTarifTexte[0]."'"; ?></td>
+                        <input type='text' class='form-control' id='id_tarif1' name='id_tarif1' style='visibility: hidden' value='<?php echo $MonTarifId[0]?>'>
+                        <input type='date' class='form-control' id='date_deb_tarif1' name='date_deb_tarif1'  value='<?php echo $MonTarifDateDebut[0]?>'>
+                        <input type='date' class='form-control' id='date_fin_tarif1' name='date_fin_tarif1'  value='<?php echo $MonTarifDateFin[0]?>'>
+                        
+                        <td><?php echo "<input type='text' class='form-control' id='tarif2' name='tarif2' value='".$MonTarifTexte[1]."'"; ?></td>
+                          
+                        <input type='text' class='form-control' id='id_tarif2' name='id_tarif2' style='visibility: hidden' value='<?php echo $MonTarifId[1]?>'>
+                        <input type='date' class='form-control' id='date_deb_tarif2' name='date_deb_tarif2'  value='<?php echo $MonTarifDateDebut[1]?>'>
+                        <input type='date' class='form-control' id='date_fin_tarif2' name='date_fin_tarif2'  value='<?php echo $MonTarifDateFin[1]?>'>
                         
                         <td>
                             <button class="btn secondary" name='modifier' value="<?php echo $row['id_bien'];?>" type='submit' class="btn btn-primary">Modifier</button>

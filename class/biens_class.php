@@ -129,6 +129,12 @@
         $stmt=$code->Query($sql);
         return $stmt;
         }
+        public function getTarifInfoBien($id_bien) {
+        $sql = "SELECT * FROM tarif WHERE id_bien=".$id_bien;
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        return $stmt;
+        }
         public function getOneBien($id_bien) {
         $sql = "SELECT * FROM biens WHERE id_bien=".$id_bien;
         $code = $this->code;
