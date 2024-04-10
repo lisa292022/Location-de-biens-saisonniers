@@ -129,6 +129,12 @@
             $stmt=$code->Query($SQL);
             return $stmt;
         }
+        public function GetNomClient($id){
+            $SQL="SELECT nom_client, prenom_client FROM clients WHERE id_client ='".$id."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
     }
 
 

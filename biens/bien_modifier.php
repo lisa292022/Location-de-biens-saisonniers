@@ -6,6 +6,8 @@
 <link href="../style.css" rel="stylesheet" />
 </head>
 
+
+
 <body>    
     <center>Modification d'un bien</center>
     <!--link rel="stylesheet" href="css/style.css" /-->
@@ -34,6 +36,7 @@
         include('../class/biens_class.php');
         include('../class/type_bien_class.php');
         include('../class/commune_class.php');
+        include('../class/client_class.php');
         $oBiens= new Biens(1);
         $oBiens->setcode($code);
         $oTypebien= new TypeBien(1);
@@ -41,6 +44,8 @@
         $lesbiens=$oBiens->getAllBiens();
         $ocommune = new Commune(1);
         $ocommune->setcode($code);
+        $oclient= new Client(1);
+        $oclient->setcode($code);
         $id_bien = $_POST['modifier'];
         $lebien=$oBiens->getOneBien($id_bien);
         while($row = $lebien->fetch(PDO::FETCH_ASSOC)):?>
@@ -180,7 +185,49 @@
                         
     </form>
                                                 
-</table>                        
+</table>
+        
+<table>
+            <thead>
+                <center>Les réservations</center>
+                <tr> 
+                    <th> Titre </th>
+                    <th> Annulation </th>
+                    <th> Client </th>
+                    <th> Date de début </th>
+                    <th> Date de fin </th>
+                    <th> Commentaire </th>
+                    <th> Moderation </th>
+                </tr>
+            </thead>
+            <?php
+                    $commentaires = $oBiens->getReservationsBien($id_bien);
+                    if($commentaires->rowCount() != 0) {
+                    while($row = $commentaires->fetch(PDO::FETCH_ASSOC)):?>
+                    <tr>
+                        <th> <?php echo $row['title']?> </th>
+                        <th> <?php if ($row['annulation_resa']==1) {echo "Oui";} else {echo "Non";}?> </th>
+                        <th> <?php $retnomclient=$oclient->GetNomClient($row['id_client']); 
+                        while($row2 = $retnomclient->fetch(PDO::FETCH_ASSOC)):
+                            $nomclient=$row2['nom_client'];
+                            $prenomclient=$row2['prenom_client'];
+                        endwhile;
+                        echo $nomclient." ".$prenomclient; ?> </th>
+                        <th> <?php echo $row['date_deb_resa']?> </th>
+                        <th> <?php echo $row['date_fin_resa']?> </th>
+                        <th> <?php echo $row['commentaire']?> </th>
+                        <th> <?php if ($row['moderation']==1) {echo "Oui";} else {echo "Non";}?> </th>
+                    </tr>
+                    <?php endwhile;
+                    } else { ?>
+                    <tr>
+                        <th WIDTH="100%"> Pas de réservation </th>
+                    </tr>
+                    <?php } ?>
+</table>        
+        
+        
+        
                         <a href="../front/acceuil.php"><img src="../photo/home.jfif" title="Page d'accueil"></a>
 </div><!-- container -->
 </body>
