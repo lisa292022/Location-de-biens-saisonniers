@@ -42,8 +42,8 @@
         $lesbiens=$oBiens->getAllBiens();
         while($row = $lesbiens->fetch(PDO::FETCH_ASSOC)):?>
                     <form id='modifier' name='modifier' action='bien_modifier.php' method='POST'>           
-                        <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."'"; ?></td>
-                        <td><?php echo "<input type='text' class='form-control' id='rue_bien".$row['id_bien']."' name='rue_bien".$row['id_bien']."' value='".$row['rue_bien']."'"; ?></td>
+                        <td><?php echo "<input type='text' class='form-control' id='nom_bien".$row['id_bien']."' name='nom_bien".$row['id_bien']."' value='".$row['nom_bien']."' disabled='disabled'"; ?></td>
+                        <td><?php echo "<input type='text' class='form-control' id='rue_bien".$row['id_bien']."' name='rue_bien".$row['id_bien']."' value='".$row['rue_bien']."' disabled='disabled'"; ?></td>
                         
                         <!--td><?php
                         $idcom = $row['Idcom'];
@@ -61,22 +61,22 @@
                         ?></td-->
                         
                         <td>
-                                <input type="text" class='form-control' id='cop_vil_bien<?php echo $row['id_bien']; ?>' name='cop_vil_bien<?php echo $row['id_bien']; ?>' value='<?php echo $nom_commune_postal." ".$code_postal ; ?>'    onkeyup="autocompletbien('cop_vil_bien<?php echo $row['id_bien']; ?>', 'cop_vil_bien_list<?php echo $row['id_bien']; ?>' )">
+                                <input type="text" class='form-control' id='cop_vil_bien<?php echo $row['id_bien']; ?>' name='cop_vil_bien<?php echo $row['id_bien']; ?>' value='<?php echo $nom_commune_postal." ".$code_postal ; ?>'  disabled="disabled"  onkeyup="autocompletbien('cop_vil_bien<?php echo $row['id_bien']; ?>', 'cop_vil_bien_list<?php echo $row['id_bien']; ?>' )">
 				<ul id="cop_vil_bien_list<?php echo $row['id_bien']; ?>"></ul>
                         </td>
                         
-                        <td><?php echo "<input type='text' class='form-control petit' id='superficie_bien".$row['id_bien']."' name='superficie_bien".$row['id_bien']."' value='".$row['superficie_bien']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control petit' id='nb_couchage".$row['id_bien']."' name='nb_couchage".$row['id_bien']."' value='".$row['nb_couchage']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control petit' id='nb_piece".$row['id_bien']."' name='nb_piece".$row['id_bien']."' value='".$row['nb_piece']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control petit' id='nb_chambre".$row['id_bien']."' name='nb_chambre".$row['id_bien']."' value='".$row['nb_chambre']."'"; ?></td>  
-                        <td><?php echo "<textarea class='form-control' id='descriptif".$row['id_bien']."' name='descriptif".$row['id_bien']."'>".$row['descriptif']."</textarea>"; ?></td>
-                        <td><?php echo "<input type='text' class='form-control petit' id='ref_bien".$row['id_bien']."' name='ref_bien".$row['id_bien']."' value='".$row['ref_bien']."'"; ?></td>  
-                        <td><?php echo "<input type='text' class='form-control petit' id='statut_bien".$row['id_bien']."' name='statut_bien".$row['id_bien']."' value='".$row['statut_bien']."'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='superficie_bien".$row['id_bien']."' name='superficie_bien".$row['id_bien']."' value='".$row['superficie_bien']."' disabled='disabled'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='nb_couchage".$row['id_bien']."' name='nb_couchage".$row['id_bien']."' value='".$row['nb_couchage']."' disabled='disabled'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='nb_piece".$row['id_bien']."' name='nb_piece".$row['id_bien']."' value='".$row['nb_piece']."' disabled='disabled'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='nb_chambre".$row['id_bien']."' name='nb_chambre".$row['id_bien']."' value='".$row['nb_chambre']."' disabled='disabled'"; ?></td>  
+                        <td><?php echo "<textarea class='form-control' id='descriptif".$row['id_bien']."' disabled='disabled' name='descriptif".$row['id_bien']."'>".$row['descriptif']."</textarea>"; ?></td>
+                        <td><?php echo "<input type='text' class='form-control petit' id='ref_bien".$row['id_bien']."' name='ref_bien".$row['id_bien']."' value='".$row['ref_bien']."' disabled='disabled'"; ?></td>  
+                        <td><?php echo "<input type='text' class='form-control petit' id='statut_bien".$row['id_bien']."' name='statut_bien".$row['id_bien']."' value='".$row['statut_bien']."' disabled='disabled'"; ?></td>  
                                
                         <?php $MonTypeBienTexte = $oTypebien->getLibTypeBien($row['id_type_bien']); ?>
                         <!--td><?php echo "<input type='text' class='form-control petit' id='lib_type_bien".$row['id_bien']."' name='lib_type_bien".$row['id_bien']."' value='".$MonTypeBienTexte."'"; ?></td-->                            
                         
-                         <td><select class="form-control petit" id="lib_type_bien<?php echo $row['id_bien']?>" name="lib_type_bien<?php echo $row['id_bien']?>">
+                         <td><select class="form-control petit" id="lib_type_bien<?php echo $row['id_bien']?>" name="lib_type_bien<?php echo $row['id_bien']?>" disabled="disabled">
                                 <?php
                                     $all_type_bien = $oTypebien->getAllTypeBien();
                                     foreach($all_type_bien as $type_bien) {  
