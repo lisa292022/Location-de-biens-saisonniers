@@ -73,11 +73,11 @@
                             <button name='modifier' value="<?php echo $row['id_client'];?>" type='submit' class="btn btn-primary">Modifier</button>
                         </td>
                         
-                        <td>
+                        <!--td>
                             <form id='supprimer' name='supprimer' action='clients_traitement.php' method='POST'>
                                 <button name='supprimer' value="<?php echo $row['id_client'];?>" type='submit'>Supprimer</button>
                             </form>
-                        </td>
+                        </td-->
                         </form>
                         </tr>
                         

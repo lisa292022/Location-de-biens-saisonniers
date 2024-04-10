@@ -101,11 +101,11 @@
                             <button class="btn secondary" name='modifier' value="<?php echo $row['id_bien'];?>" type='submit' class="btn btn-primary">Modifier</button>
                         </td>
                         
-                        <td>
+                        <!--td>
                             <form id='supprimer' name='supprimer' action='biens_traitement.php' method='POST'>
                             <button class="btn secondary" name='supprimer'  value="<?php echo $row['id_bien'];?>" type='submit'>Supprimer</button>
                             </form>
-                        </td>
+                        </td-->
                         </form>
                         </tr>
         <?php endwhile;?>
