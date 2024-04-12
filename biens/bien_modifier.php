@@ -49,6 +49,7 @@
         $oclient->setcode($code);
         $oPhoto= new Photo(1);
         $oPhoto->setcode($code);
+        // la page précédante est bien_affichage.php
         $id_bien = $_POST['modifier'];
         $lebien=$oBiens->getOneBien($id_bien);
         while($row = $lebien->fetch(PDO::FETCH_ASSOC)):?>
@@ -204,7 +205,7 @@
                 </tr>
             </thead>
             <?php
-                    $commentaires = $oBiens->getReservationsBien($id_bien);
+                    $commentaires = $oBiens->getReservationsBienSansModeration($id_bien);
                     if($commentaires->rowCount() != 0) {
                     while($row = $commentaires->fetch(PDO::FETCH_ASSOC)):?>
                     <tr>
@@ -231,17 +232,37 @@
         
 <table>
             <thead>
+                <center>Les photos</center>
                 <tr>
-                    <th> Photos </th> 
+                    <th>Nom</th>
+                    <th>Photo</th>
+                    <th colspan="1"></th>
+                    <th colspan="1"></th> 
                 </tr>
             </thead>
             <?php $lesphotos=$oPhoto->getAllPhotosBien($id_bien);?>
             <?php while($row = $lesphotos->fetch(PDO::FETCH_ASSOC)):?>
-            <?php $lien_photo = $row['lien_photo'];?>
-            <tr>
-                <td><?php echo "<input type='image' src='../photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['lien_photo']."' name='lien_photo".$row['lien_photo']."'";?></td>                         
-            </tr>
+            <form id='modifier_photo_bien' name='modifier_photo_bien' action='../photos/photo_traitement.php' method='POST'>
+                <tr>
+                    <td><?php echo "<input type='text' class='form-control' id='nom_photo".$row['id_photo']."' name='nom_photo".$row['id_photo']."' value='".$row['nom_photo']."'"; ?></td>
+                    <?php $lien_photo = $row['lien_photo'];?>
+                    <td><?php echo "<input type='image' src='../photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['id_photo']."' name='lien_photo".$row['id_photo']."'";?></td>                         
+                    <td>
+                        <button name='modifier_photo_bien' value="<?php echo $row['id_photo'];?>" type='submit' class="btn btn-primary">Modifier</button>
+                    </td>
+                    <td>
+                        <form id='supprimer_photo_bien' name='supprimer_photo_bien' action='bien_modifier.php' method='POST'>
+                        <button name='supprimer_photo_bien' value="<?php echo $row['id_photo'];?>" type='submit'>Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            </form>
             <?php endwhile;?>
+            <form id="ajouter" name="ajouter" action="../photos/photo_traitement.php" method="POST">
+                <td><input type="text" class="form-control" id="nom_photo" name="nom_photo" placeholder="Indiquez le nom de la photo"> </td>
+                <td><input type="file" class="form-control" id="lien_photo" name="lien_photo"> </td>
+                <td><button id='ajouter_photo_bien' name='ajouter_photo_bien' type="submit" class="btn btn-primary" value="<?php echo $id_bien;?>">Ajouter</button></td>
+            </form>
 </table>        
         
                         <a href="../front/acceuil.php"><img src="../photo/home.jfif" title="Page d'accueil"></a>

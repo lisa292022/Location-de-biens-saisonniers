@@ -186,5 +186,11 @@
         $stmt=$code->Query($sql);
         return $stmt;
         }
+        public function getReservationsBienSansModeration($id_bien) {
+        $sql = "SELECT * FROM reservation WHERE id_bien=".$id_bien." AND commentaire!=''";
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        return $stmt;
+        }
     }
 ?>

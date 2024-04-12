@@ -59,6 +59,13 @@
         $stmt=$code->Query($sql);
         return $stmt;
         }
+        
+        public function getIdBienPhoto($id_photo) {
+        $sql = "SELECT id_bien FROM photos WHERE id_photo =" .$id_photo;
+        $code = $this->code;
+        $stmt=$code->Query($sql);
+        return $stmt;
+        }
 
     public function insertPhoto($nom_photo, $lien_photo, $id_bien) {
         $SQL = "INSERT INTO photos (nom_photo, lien_photo, id_bien) VALUES ('".$nom_photo."','".$lien_photo."','".$id_bien."')";
@@ -69,6 +76,13 @@
 
     public function updatePhoto($id_photo, $nom_photo, $lien_photo, $id_bien) {
         $SQL = "UPDATE photos SET  nom_photo='".$nom_photo."',lien_photo='".$lien_photo."',id_bien='".$id_bien."' WHERE id_photo ='".$id_photo."'";
+        $code = $this->code;
+        $stmt=$code->Query($SQL);
+        return $stmt;
+    }
+    
+    public function updateNomPhoto($id_photo, $nom_photo) {
+        $SQL = "UPDATE photos SET  nom_photo='".$nom_photo."' WHERE id_photo ='".$id_photo."'";
         $code = $this->code;
         $stmt=$code->Query($SQL);
         return $stmt;
