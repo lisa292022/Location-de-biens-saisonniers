@@ -37,6 +37,7 @@
         include('../class/type_bien_class.php');
         include('../class/commune_class.php');
         include('../class/client_class.php');
+        include('../class/photo_class.php');
         $oBiens= new Biens(1);
         $oBiens->setcode($code);
         $oTypebien= new TypeBien(1);
@@ -46,6 +47,8 @@
         $ocommune->setcode($code);
         $oclient= new Client(1);
         $oclient->setcode($code);
+        $oPhoto= new Photo(1);
+        $oPhoto->setcode($code);
         $id_bien = $_POST['modifier'];
         $lebien=$oBiens->getOneBien($id_bien);
         while($row = $lebien->fetch(PDO::FETCH_ASSOC)):?>
@@ -226,7 +229,20 @@
                     <?php } ?>
 </table>        
         
-        
+<table>
+            <thead>
+                <tr>
+                    <th> Photos </th> 
+                </tr>
+            </thead>
+            <?php $lesphotos=$oPhoto->getAllPhotosBien($id_bien);?>
+            <?php while($row = $lesphotos->fetch(PDO::FETCH_ASSOC)):?>
+            <?php $lien_photo = $row['lien_photo'];?>
+            <tr>
+                <td><?php echo "<input type='image' src='../photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['lien_photo']."' name='lien_photo".$row['lien_photo']."'";?></td>                         
+            </tr>
+            <?php endwhile;?>
+</table>        
         
                         <a href="../front/acceuil.php"><img src="../photo/home.jfif" title="Page d'accueil"></a>
 </div><!-- container -->
