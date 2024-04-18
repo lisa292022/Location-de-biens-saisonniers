@@ -274,6 +274,7 @@
                 <tr>
                     <td><?php echo "<input type='text' class='form-control' id='nom_photo".$row['id_photo']."' name='nom_photo".$row['id_photo']."' value='".$row['nom_photo']."'"; ?></td>
                     <?php $lien_photo = $row['lien_photo'];?>
+                    <!--td><?php echo "<input type='image' src='http://localhost/location_saisonniere/Location-de-biens-saisonniers/photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['id_photo']."' name='lien_photo".$row['id_photo']."'";?></td-->                         
                     <td><?php echo "<input type='image' src='../photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['id_photo']."' name='lien_photo".$row['id_photo']."'";?></td>                         
                     <td>
                         <button name='modifier_photo_bien' value="<?php echo $row['id_photo'];?>" type='submit' class="btn btn-primary">Modifier</button>
@@ -286,9 +287,26 @@
                 </tr>
             </form>
             <?php endwhile;?>
-            <form id="ajouter" name="ajouter" action="../photos/photo_traitement.php" method="POST">
+            <form id="ajouter" name="ajouter" action="../photos/photo_traitement.php" method="POST" enctype="multipart/form-data">
                 <td><input type="text" class="form-control" id="nom_photo" name="nom_photo" placeholder="Indiquez le nom de la photo"> </td>
-                <td><input type="file" class="form-control" id="lien_photo" name="lien_photo"> </td>
+                <td><input type="file" class="form-control" id="lien_photo" name="lien_photo" accept="image/png, image/jpeg, image/jfif, image/PNG, image/JPEG, image/JFIF"  onchange="loadFile(event)"  directory>
+                <img id="output"/>
+                <input type="text" id="chemin" name="chemin" value="vide" >
+                
+
+                
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+    var chemin = document.getElementById('chemin');
+    chemin.value = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
+                </td>
                 <td><button id='ajouter_photo_bien' name='ajouter_photo_bien' type="submit" class="btn btn-primary" value="<?php echo $id_bien;?>">Ajouter</button></td>
             </form>
 </table>        

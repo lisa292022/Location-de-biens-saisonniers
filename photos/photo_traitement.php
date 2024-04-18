@@ -19,9 +19,15 @@
             echo "<script>alert('Etes-vous certain de vouloir ajouter ?');</script>;";
             // récupère id de photo
             $MonBienId=$_POST['ajouter_photo_bien'];
-            $oPhoto->insertPhoto($_POST['nom_photo'],$_POST['lien_photo'],$MonBienId);
-            // ne marche pas
-            //header('Location: ../biens/bien_modifier.php?modifier='.$MonBienId);
+            $oPhoto->insertPhoto($_POST['nom_photo'],$_FILES['lien_photo']['name'],$MonBienId);
+            // copie la photo
+            echo "Le fichier ".$_FILES['lien_photo']['name'];
+            //$destination='C:\xampp\htdocs\location_saisonniere\Location-de-biens-saisonniers\photo'.'\\'.$_POST['nom_photo']."JPG";
+            //echo $destination;
+            $destination='C:\xampp\htdocs\location_saisonniere\Location-de-biens-saisonniers\photo'.'\\'.$_FILES['lien_photo']['name'];
+            echo $destination;
+            copy($_FILES['lien_photo']['tmp_name'],$destination);
+            //move_uploaded_file($_FILES['lien_photo']['tmp_name'], $destination);
             ?>
             <?php
             if(isset($MonBienId))
