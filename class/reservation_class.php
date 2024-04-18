@@ -160,6 +160,13 @@
             return $stmt;
         }
         
+        public function updateModerationReservation($id_reservation,$moderation) {
+            $SQL="UPDATE reservation SET moderation='".$moderation."' WHERE id_reservation='".$id_reservation."'";
+            $code = $this->code;
+            $stmt=$code->Query($SQL);
+            return $stmt;
+        }
+        
         public function deleteReservation($id){
              //Paramètres pour l'exécution de la requête
             $SQL="DELETE FROM reservation WHERE id_reservation ='".$id."'";

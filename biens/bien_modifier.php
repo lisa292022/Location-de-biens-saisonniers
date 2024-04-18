@@ -202,6 +202,7 @@
                     <th> Date de fin </th>
                     <th> Commentaire </th>
                     <th> Moderation </th>
+                    <th colspan="1"></th>
                 </tr>
             </thead>
             <?php
@@ -220,7 +221,34 @@
                         <th> <?php echo $row['date_deb_resa']?> </th>
                         <th> <?php echo $row['date_fin_resa']?> </th>
                         <th> <?php echo $row['commentaire']?> </th>
-                        <th> <?php if ($row['moderation']==1) {echo "Oui";} else {echo "Non";}?> </th>
+                         
+                        <form id='modifier_moderation' name='modifier_moderation' action='../reservation/traitement_test.php' method='POST'>
+                        <td><select class="form-control petit" id="moderation<?php echo $row['id_reservation']?>" name="moderation<?php echo $row['id_reservation']?>">                             
+                                <?php if ($row['moderation']==1) {?>
+                                <option selected="selected" value="<?php echo "Oui";?>">
+                                    <?php echo "Oui"?>
+                                </option>
+                                <option value="<?php echo "Non";?>">
+                                    <?php echo "Non"?>
+                                </option>
+                                <?php } else { ?>
+                                <option value="<?php echo "Oui";?>">
+                                    <?php echo "Oui";?>
+                                </option>
+                                <option selected="selected" value="<?php echo "Non";?>">
+                                    <?php echo "Non"?>
+                                </option>
+                                <?php }?>
+                               
+                            </select>
+                        </td>
+                        <input type="text" class="form-control petit" id="id_bien" name="id_bien" value="<?php echo $id_bien;?>" style="visibility: hidden">
+                        <td>
+                            <button name='modifier_moderation' value="<?php echo $row['id_reservation'];?>" type='submit' class="btn btn-primary">Modifier</button>
+                        </td>
+                        </form>
+                        
+                        
                     </tr>
                     <?php endwhile;
                     } else { ?>
