@@ -92,6 +92,38 @@ if (isset($_POST['action'])) {
         $oReservation->deleteReservation($id_reservation);
         header('Location: affichage_test.php');
         exit;
-    }
+    } 
 }
+// on modifie la moderation depuis bien_modifier
+elseif (isset($_POST['modifier_moderation'])) {
+        // Modère une réservation
+        $id_reservation = $_POST['modifier_moderation'];
+        $moderation_texte = $_POST['moderation'.$id_reservation];
+        if ($moderation_texte == "Oui") { $moderation = 1;} else { $moderation = 0;} 
+        echo $moderation;
+        $oReservation->updateModerationReservation($id_reservation,$moderation);
+        $MonBienId=$_POST['id_bien'];
+            ?>
+            <?php
+            if(isset($MonBienId))
+            {
+            ?>
+            <form name="myForm" id="myForm"  action="../biens/bien_modifier.php" method="POST">
+                <input name="modifier" value="<?php echo $MonBienId;?>" />
+            </form>
+
+            <script>
+            function submitform()
+            {
+            document.getElementById("myForm").submit();
+            }
+            window.onload = submitform;
+            </script>
+            <?php
+            }
+            ?>
+        
+        <?php
+        exit; 
+    }
 ?>
