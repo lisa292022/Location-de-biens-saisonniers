@@ -4,7 +4,7 @@
 
 //Connexion à la base de donnée
     try {
-        $code = new PDO("mysql:host=127.0.0.1;dbname=locations_biens_saisonniers",'root','');
+        $code = new PDO("mysql:host=127.0.0.1;dbname=locations_biens_saisonniers",'root','Flutter04*');
     }
     catch( PDOException $e ) {
         echo "Erreur SQL :", $e->getMessage();
