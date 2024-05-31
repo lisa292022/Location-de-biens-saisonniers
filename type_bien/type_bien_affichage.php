@@ -27,7 +27,7 @@
                     <button name='modifier'  value="<?php echo $untypebien['id_type_bien'];?>" type="submit"  class="btn btn-primary">Modifier</button>
                 </td>
                 <td>    
-                        <button name='supprimer' value="<?php echo $untypebien['id_type_bien'];?>">Supprimer</button>   
+                    <button name='supprimer' value="<?php echo $untypebien['id_type_bien'];?>">Supprimer</button>   
                 </td>
             </tr>
     

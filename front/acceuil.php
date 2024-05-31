@@ -58,6 +58,9 @@
                             <li class="bouton">
                             <a href="..\reservation\affichage_test.php?client=admin">Réservations</a>   
                             </li>
+                            <li class="bouton">
+                            <a href="..\activite\activite_affichage.php?client=admin">Activités</a>   
+                            </li>
                             <?php
                         }
                         else {

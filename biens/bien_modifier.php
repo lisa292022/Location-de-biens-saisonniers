@@ -292,6 +292,7 @@
                 <td><input type="file" class="form-control" id="lien_photo" name="lien_photo" accept="image/png, image/jpeg, image/jfif, image/PNG, image/JPEG, image/JFIF"  onchange="loadFile(event)"  directory>
                 <img id="output"/>
                 <input type="text" id="chemin" name="chemin" value="vide" >
+
                 
 
                 
@@ -309,7 +310,70 @@
                 </td>
                 <td><button id='ajouter_photo_bien' name='ajouter_photo_bien' type="submit" class="btn btn-primary" value="<?php echo $id_bien;?>">Ajouter</button></td>
             </form>
-</table>        
+</table> 
+        <center>Les activités</center>
+        <table>
+    <tr>
+                      <th>Activité</th>
+                      <th>Présente</th>
+                      <th colspan="1"><th>
+    </tr>
+ <form name="liste_activite" method="POST" action="biens_traitement.php">
+        <?php
+    include('../include/connexion.inc.include');
+    include('../class/activite_class.php');
+    
+    $oactivite = new activite(1);
+    $oactivite->setcode($code);
+    $lesactivite = $oactivite->getallactivite();
+    ?>
+<form id='modifier_activite' name='modifier_activite'action='biens_traitement.php' method='POST'>
+    <?php foreach ($lesactivite as $unactivite) {  
+        $activitePresente = $oactivite->IsPresentActiviteBien($id_bien,$unactivite['id_activite']);
+        ?>
+            <tr>
+            <form name="modifier_activite" method="POST" action="biens_traitement.php">
+                <td>
+                    <input type='text' class='form-control' 
+                           id='description<?php echo $unactivite['id_activite']; ?>' 
+                           name='description<?php echo $unactivite['id_activite']; ?>' 
+                           value='<?php echo $unactivite['description']; ?>'>
+                </td>
+                <td><select class="form-control petit" id="activite<?php echo $unactivite['id_activite']?>" name="activite<?php echo $unactivite['id_activite']?>">                             
+                                <?php if ($activitePresente->rowCount()==1) {?>
+                                <option selected="selected" value="<?php echo "Oui";?>">
+                                    <?php echo "Oui"?>
+                                </option>
+                                <option value="<?php echo "Non";?>">
+                                    <?php echo "Non"?>
+                                </option>
+                                <?php } else { ?>
+                                <option value="<?php echo "Oui";?>">
+                                    <?php echo "Oui";?>
+                                </option>
+                                <option selected="selected" value="<?php echo "Non";?>">
+                                    <?php echo "Non"?>
+                                </option>
+                                <?php }?>
+                               
+                    </select>
+                </td>
+                
+                
+                
+                
+                <td>
+                    <input type="hidden" name="id_activite" value="<?php echo $unactivite['id_activite']; ?>">
+                    <input type="hidden" name="id_bien" value="<?php echo $id_bien; ?>">
+                    <button name='modifier_activite' value="<?php echo $unactivite['id_activite']; ?>" type='submit' class="btn btn-primary">Modifier</button>
+                </td>
+            </form>
+        </tr>
+    <?php }?>        
+
+    </form>
+     
+</table> 
         
                         <a href="../front/acceuil.php"><img src="../photo/home.jfif" title="Page d'accueil"></a>
 </div><!-- container -->

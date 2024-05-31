@@ -3,6 +3,7 @@
     include('../class/type_bien_class.php');
     include('../class/commune_class.php');
     include('../class/tarif_class.php');
+    include('../class/activite_class.php');
         
     $oBiens= new Biens(1);
     $oBiens->setcode($code);
@@ -12,6 +13,8 @@
     $ocommune->setcode($code);
     $oTarif= new Tarif(1);
     $oTarif->setcode($code);
+    $oactivite = new activite(1);
+    $oactivite->setcode($code);
         
     if(isset($_POST['ajouter'])){
         echo "<script>alert('Etes-vous certain de vouloir ajouter ?');</script>;";
@@ -49,5 +52,38 @@
         $oTarif->updateTarif($id_tarif2,$date_deb_tarif2,$date_fin_tarif2,$tarif2,$id_bien);
         
         header('Location: biens_affichage.php');
-    }      
+    }
+    if(isset($_POST['modifier_activite'])){
+     echo "<script>alert('Etes-vous certain de vouloir modifier ?');</script>";
+   
+    $id_activite = $_POST['modifier_activite'];
+    $id_bien = $_POST['id_bien'];
+    $presence = $id_bien.$_POST['activite'.$id_activite];
+    
+    if ($presence == $id_bien."Non") {
+        echo "delete";
+        $oactivite->deleteActiviteBien($id_bien,$id_activite);
+    }
+    else {
+        echo "insert";
+        $oactivite->insertActiviteBien($id_bien,$id_activite);
+    }
+    $MonBienId=$_POST['id_bien'];
+    if(isset($MonBienId))
+            {
+            ?>
+            <form name="myForm" id="myForm"  action="bien_modifier.php" method="POST">
+                <input name="modifier" value="<?php echo $MonBienId;?>" />
+            </form>
+
+            <script>
+            function submitform()
+            {
+            document.getElementById("myForm").submit();
+            }
+            window.onload = submitform;
+            </script>
+            <?php
+            }   
+}
 ?>

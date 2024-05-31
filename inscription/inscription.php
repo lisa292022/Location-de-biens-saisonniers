@@ -34,7 +34,7 @@
                 </div-->
                 <div class="input_container">
                     <label for="vil_client">Ville / Code postal :</label>
-                                <input type="text" id='cop_vil_bien' name='cop_vil_bien' placeholder='Indiquez la ville et le code postal du bien' onkeyup="autocompletbien('cop_vil_bien', 'cop_vil_bien_list' )">
+                                <input type="text" id='cop_vil_bien' name='cop_vil_bien' placeholder='Indiquez la ville et le code postal' onkeyup="autocompletbien('cop_vil_bien', 'cop_vil_bien_list' )">
 				
 				<ul id="cop_vil_bien_list"></ul>
                 </div>

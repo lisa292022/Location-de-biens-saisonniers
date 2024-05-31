@@ -7,12 +7,16 @@
         include('../include/connexion.inc.include');
         include('../class/biens_class.php');
         include('../class/photo_class.php');
+        include('../class/activite_class.php');
         $o_Biens=new Biens(2);
         $o_Biens->setCode($code);
         $o_Biens->getOneBien(2);
         $oPhoto= new Photo(1);
         $oPhoto->setcode($code);
         $lesphotos=$oPhoto->getAllPhotosBien($_POST['consulter']); 
+        $oactivite= new Activite(3);
+        $oactivite->setcode($code);
+        $lesactivite=$oactivite->getAllActiviteBien($_POST['consulter']); 
         ?>
         <style>
         body {
@@ -206,6 +210,27 @@
                 <td><?php echo "<input type='image' src='../photo/". $lien_photo . " ' alt='Photo non trouvée'  width='150' height='100'  class='form-control' id='lien_photo".$row['lien_photo']."' name='lien_photo".$row['lien_photo']."'";?></td>                         
             </tr>
             <?php endwhile;?>
+        </table>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th> Activités </th> 
+                </tr>
+            </thead>
+            <?php
+                    $description = $o_Biens->getActivitesBien($id_bien);
+                    if($description->rowCount() != 0) {
+                    while($row = $description->fetch(PDO::FETCH_ASSOC)):?>
+                    <tr>
+                        <td WIDTH="100%"> <?php echo $row['description']?> </td>
+                    </tr>
+                    <?php endwhile;
+                    } else { ?>
+                    <tr>
+                        <td WIDTH="100%"> Pas d'activités </td>
+                    </tr>
+                    <?php } ?>
         </table>
         
          <a href="../front/acceuil.php"><img src="../photo/home.jfif" title="Page d'accueil"></a>
